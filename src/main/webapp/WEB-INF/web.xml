@@ -1,65 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5" >
-	<!--1.启动Spring的容器 -->
-	<!-- needed for ContextLoaderListener -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>motor</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+	<!-- 指定spring的主配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:config/spring/spring-base</param-value>
+		<param-value>classpath:config/spring/spring-base.xml</param-value>
 	</context-param>
 
-	<!-- Bootstraps the root web application context before servlet initialization -->
-	<listener>
+	<!-- 配置监听器让项目一加载(或服务器一启动)就创建Spring容器 -->
+<!-- 	<listener>
+		自动查找WEB-INF下 applicationContext.xml文件来实例化Spring容器
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!-- springmvc的前端控制器, 拦截所有请求-->
-	<!-- The front controller of this Spring Web application, responsible for handling all application requests -->
+ -->
+	<!-- 配置Spring Web MVC的前端控制器 -->
 	<servlet>
-		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-name>SpringWebMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 配置初始化参数来指定Spring Web MVC配置文件的位置(或Spring的主配置文件) -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:config/spring/spring-base.xml</param-value>
 		</init-param>
+		<!-- 配置让前端控制器在服务器(Tomcat)一启动就实例化，初始化 -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<!-- Map all requests to the DispatcherServlet for handling -->
+	<!-- 配置Servlet前端控制器的映射 -->
 	<servlet-mapping>
-		<servlet-name>dispatcherServlet</servlet-name>
+		<!-- 1. *.action 前端控制器负责拦截所有以action的请求 2. / 前端控制器负责拦截所有的动态请求(静态请求不会拦截). 
+			支持Restful风格的url 3. /* 前端控制器负责拦截所有的请求, Spring MVC解析不了静态请求 -->
+		<servlet-name>SpringWebMVC</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<!--3配置字符编码过滤器  放在所有过滤器之前 -->
-	<filter>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>utf-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceRequestEncoing</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceResponseEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<!-- 4.使用rest风格的URI -->
-	<filter>
-		<filter-name>HiddenHttpMethodFilter</filter-name>
-		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>HiddenHttpMethodFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>	
+
+  
 </web-app>

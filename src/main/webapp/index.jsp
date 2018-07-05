@@ -190,6 +190,7 @@
 		});
 		
 		function to_page(pn){
+			alert("abc");
 			$.ajax({
 				url:"${APP_PATH}/bus/queryAll",
 				data:"pn="+pn,
@@ -214,7 +215,7 @@
 				var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>");
 				var busIdTd = $("<td></td>").append(item.busid);
 				var lineTypeTd = $("<td></td>").append(item.linetype);
-				var lineNameTd = $("<td></td>").append(item.linename");
+				var lineNameTd = $("<td></td>").append(item.linename);
 				var busNumberTd = $("<td></td>").append(item.busnumber);
 				var busTypeTd = $("<td></td>").append(item.bustype);
 				var driverTd = $("<td></td>").append(item.driver);
@@ -242,7 +243,7 @@
 					.append(driverPhoneTd)
 					.append(tonTd)
 					.append(useableTd)
-					.append(btnTd)
+					.append(btnTd) 
 					.appendTo("#bus_table tbody");
 			});
 		}
