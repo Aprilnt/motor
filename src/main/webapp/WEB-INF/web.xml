@@ -14,13 +14,11 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:config/spring/spring-base.xml</param-value>
 	</context-param>
-
 	<!-- 配置监听器让项目一加载(或服务器一启动)就创建Spring容器 -->
-<!-- 	<listener>
-		自动查找WEB-INF下 applicationContext.xml文件来实例化Spring容器
+	<listener>
+		<!-- 自动查找WEB-INF下 applicationContext.xml文件来实例化Spring容器 -->
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
- -->
 	<!-- 配置Spring Web MVC的前端控制器 -->
 	<servlet>
 		<servlet-name>SpringWebMVC</servlet-name>
@@ -33,7 +31,6 @@
 		<!-- 配置让前端控制器在服务器(Tomcat)一启动就实例化，初始化 -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<!-- 配置Servlet前端控制器的映射 -->
 	<servlet-mapping>
 		<!-- 1. *.action 前端控制器负责拦截所有以action的请求 2. / 前端控制器负责拦截所有的动态请求(静态请求不会拦截). 
@@ -41,6 +38,4 @@
 		<servlet-name>SpringWebMVC</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-  
 </web-app>
