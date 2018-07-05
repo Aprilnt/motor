@@ -134,7 +134,7 @@
 					var param = {
 						pageNumber : params.pageNumber,
 						pageSize : params.pageSize,
-						acceptTrader : $("#txt_search_departmentname").val(),
+						carrier : $("#txt_search_departmentname").val(),
 						driver : $("#txt_search_statu").val()
 					};
 					return param;
@@ -156,46 +156,37 @@
 				columns : [ {
 					checkbox : true
 				}, {
-					field : 'plateId',
+					field : 'busnumber',
 					title : '车牌号'
 				}, {
-					field : 'acceptTrader',
+					field : 'carrier',
 					title : '承运商'
 				}, {
 					field : 'driver',
 					title : '司机 '
 				}, {
-					field : 'telephone',
+					field : 'driverphone',
 					title : '电话'
 				}, {
-					field : 'motorcycleType',
+					field : 'bustype',
 					title : '车型'
 				}, {
-					field : 'routeType',
+					field : 'linetype',
 					title : '线路类型'
 				}, {
-					field : 'routeName',
+					field : 'linename',
 					title : '线路名称'
-				}, {
-					field : 'operationStaffId',
-					title : '操作人'
-				}, {
-					field : 'operateUnit',
-					title : '操作单位'
-				}, {
-					field : 'operateTime',
-					title : '操作时间'
-				}, {
-					field : 'tons',
+				},{
+					field : 'ton',
 					title : '吨控'
 				}, {
-					field : 'remark',
+					field : 'description',
 					title : '备注'
 				}, {
-					field : 'cancel',
+					field : 'useable',
 					title : '状态',
 					formatter : function(value, row, index) {
-						if (row.cancel == '0') {
+						if (row.useable == '0') {
 							return '激活';
 						} else {
 							return '作废';
@@ -221,8 +212,8 @@
 
 			$("#btn_sub").click(function() {
 				
-				var plateId = $("#plateIdAdd").val();
-				var acceptTrader = $("#acceptTraderAdd").val();
+				var busnumber = $("#busnumberAdd").val();
+				var carrier = $("#carrierAdd").val();
 				//获取司机下拉框的值
 				var staffId = "";
 				//获取基础档案的Id
@@ -232,45 +223,45 @@
 					}
 				}
 				var driver = staffId;
-				var telephone = $("#telephoneAdd").val();
+				var driverphone = $("#driverphoneAdd").val();
 				//获取车型下拉框的值
 				var subsetId = "";
 				//获取基础档案的Id
-				for (var i = 0; i < $("#motorcycleTypeAdd").children().length; i++) {
-					if ($("#motorcycleTypeAdd").children()[i].selected) {
-						subsetId = $($("#motorcycleTypeAdd").children()[i]).attr("id");
+				for (var i = 0; i < $("#bustypeAdd").children().length; i++) {
+					if ($("#bustypeAdd").children()[i].selected) {
+						subsetId = $($("#bustypeAdd").children()[i]).attr("id");
 					}
 				}
-				var motorcycleType = subsetId;
+				var bustype = subsetId;
 				//获取线路类型下拉框的值
 				var subsetId = "";
 				//获取基础档案的Id
-				for (var i = 0; i < $("#routeTypeAdd").children().length; i++) {
-					if ($("#routeTypeAdd").children()[i].selected) {
-						subsetId = $($("#routeTypeAdd").children()[i]).attr("id");
+				for (var i = 0; i < $("#linetypeAdd").children().length; i++) {
+					if ($("#linetypeAdd").children()[i].selected) {
+						subsetId = $($("#linetypeAdd").children()[i]).attr("id");
 					}
 				}
-				var routeType = subsetId;
-				var routeName = $("#routeNameAdd").val();
+				var linetype = subsetId;
+				var linename = $("#linenameAdd").val();
 				var operationStaffId = $("#operationStaffIdAdd").val();
 				var operateUnit = $("#orgName").val();
 				alert(operateUnit);
 				var operateTime = $("#operateTimeAdd").val();
-				var tons = $("#tonsAdd").val();
-				var remark = $("#remarkAdd").val();
-				var cancel = $("#cancelAdd").val();
+				var ton = $("#tonAdd").val();
+				var description = $("#descriptionAdd").val();
+				var useable = $("#useableAdd").val();
 				
-				if (plateId == null || plateId == "") {
+				if (busnumber == null || busnumber == "") {
 					toastr.error('车牌号不能为空');
-				} else if (acceptTrader == null || acceptTrader == "") {
+				} else if (carrier == null || carrier == "") {
 					toastr.error('承运商不能为空');
-				} else if (telephone == null || telephone == "") {
+				} else if (driverphone == null || driverphone == "") {
 					toastr.error('电话不能为空');
 				} else if (operationStaffId == null || operationStaffId == "") {
 					toastr.error('操作人不能为空');
 				} else if (operateUnit == null || operateUnit == "") {
 					toastr.error('操作单位不能为空');
-				} else if (tons == null || tons == "") {
+				} else if (ton == null || ton == "") {
 					toastr.error('吨控不能为空');
 				} else {
 					// 异步同步数据库
@@ -278,18 +269,18 @@
 						type : "post",
 						url : '${APP_PATH}/bus/add',
 						data : {
-							plateId : plateId,
-							acceptTrader : acceptTrader,
+							busnumber : busnumber,
+							carrier : carrier,
 							driver : driver,
-							telephone : telephone,
-							motorcycleType : motorcycleType,
-							routeType : routeType,
-							routeName : routeName,
+							driverphone : driverphone,
+							bustype : bustype,
+							linetype : linetype,
+							linename : linename,
 							operationStaffId : operationStaffId,
 							operateUnit : operateUnit,
-							tons : tons,
-							remark : remark,
-							cancel : cancel
+							ton : ton,
+							description : description,
+							useable : useable
 						},
 						success : function(result) {
 							if (result == "true") {
@@ -312,50 +303,50 @@
 				} else if (select.length > 1) {
 					toastr.warning('不能同时修改多行');
 				} else {
-					var plateId = [];
-					var acceptTrader = [];
+					var busnumber = [];
+					var carrier = [];
 					var driver = [];
-					var telephone = [];
-					var motorcycleType = [];
-					var routeType = [];
-					var routeName = [];
+					var driverphone = [];
+					var bustype = [];
+					var linetype = [];
+					var linename = [];
 					var operationStaffId = [];
 					var operateUnit = [];
 					var operateTime = [];
-					var tons = [];
-					var remark = [];
-					var cancel = [];
+					var ton = [];
+					var description = [];
+					var useable = [];
 					// 获取单行数据
 					for (var i = 0; i < select.length; i++) {
-						plateId[i] = select[i]['plateId'];
-						acceptTrader[i] = select[i]['acceptTrader'];
+						busnumber[i] = select[i]['busnumber'];
+						carrier[i] = select[i]['carrier'];
 						driver[i] = select[i]['driver'];
-						telephone[i] = select[i]['telephone'];
-						motorcycleType[i] = select[i]['motorcycleType'];
-						routeType[i] = select[i]['routeType'];
-						routeName[i] = select[i]['routeName'];
+						driverphone[i] = select[i]['driverphone'];
+						bustype[i] = select[i]['bustype'];
+						linetype[i] = select[i]['linetype'];
+						linename[i] = select[i]['linename'];
 						operationStaffId[i] = select[i]['operationStaffId'];
 						operateUnit[i] = select[i]['operateUnit'];
 						operateTime[i] = select[i]['operateTime'];
-						tons[i] = select[i]['tons'];
-						remark[i] = select[i]['remark'];
-						cancel[i] = select[i]['cancel'];
+						ton[i] = select[i]['ton'];
+						description[i] = select[i]['description'];
+						useable[i] = select[i]['useable'];
 					}
 
 					// 给模态框赋值
-					$("#plateIdUp").attr("value", plateId);
-					$("#acceptTraderUp").attr("value", acceptTrader);
+					$("#busnumberUp").attr("value", busnumber);
+					$("#carrierUp").attr("value", carrier);
 					$("#driverUp").attr("value", driver);
-					$("#telephoneUp").attr("value", telephone);
-					$("#motorcycleTypeUp").attr("value", motorcycleType);
-					$("#routeTypeUp").attr("value", routeType);
-					$("#routeNameUp").attr("value", routeName);
+					$("#driverphoneUp").attr("value", driverphone);
+					$("#bustypeUp").attr("value", bustype);
+					$("#linetypeUp").attr("value", linetype);
+					$("#linenameUp").attr("value", linename);
 					$("#operationStaffIdUp").attr("value", operationStaffId);
 					$("#operateUnitUp").attr("value", operateUnit);
 					$("#operateTimeUp").attr("value", operateTime);
-					$("#tonsUp").attr("value", tons);
-					$("#remarkUp").attr("value", remark);
-					$("#cancelUp").attr("value", cancel);
+					$("#tonUp").attr("value", ton);
+					$("#descriptionUp").attr("value", description);
+					$("#useableUp").attr("value", useable);
 
 					$("#myModal-footer2").modal("show");
 				
@@ -387,7 +378,7 @@
 						for(var i=0;i<response.length;i++) {
 							html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
 						}
-						$("#motorcycleTypeUp").append(html);
+						$("#bustypeUp").append(html);
 						$(".selectpicker").selectpicker("refresh");
 					}
 				});
@@ -401,7 +392,7 @@
 						for(var i=0;i<response.length;i++) {
 							html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
 						}
-						$("#routeTypeUp").append(html);
+						$("#linetypeUp").append(html);
 						$(".selectpicker").selectpicker("refresh");
 					}
 				});
@@ -418,40 +409,40 @@
 				var select = $('#tb_departments').bootstrapTable('getSelections');
 
 				var busId = "";
-				var plateId = [];
-				var acceptTrader = [];
+				var busnumber = [];
+				var carrier = [];
 				var driver = [];
-				var telephone = [];
-				var motorcycleType = [];
-				var routeType = [];
-				var routeName = [];
+				var driverphone = [];
+				var bustype = [];
+				var linetype = [];
+				var linename = [];
 				var operationStaffId = [];
 				var operateUnit = [];
 				var operateTime = [];
-				var tons = [];
-				var remark = [];
-				var cancel = [];
+				var ton = [];
+				var description = [];
+				var useable = [];
 				// 获取单行数据
 				for (var i = 0; i < select.length; i++) {
 					busId = select[i]['busId'];
-					plateId[i] = select[i]['plateId'];
-					acceptTrader[i] = select[i]['acceptTrader'];
+					busnumber[i] = select[i]['busnumber'];
+					carrier[i] = select[i]['carrier'];
 					driver[i] = select[i]['driver'];
-					telephone[i] = select[i]['telephone'];
-					motorcycleType[i] = select[i]['motorcycleType'];
-					routeType[i] = select[i]['routeType'];
-					routeName[i] = select[i]['routeName'];
+					driverphone[i] = select[i]['driverphone'];
+					bustype[i] = select[i]['bustype'];
+					linetype[i] = select[i]['linetype'];
+					linename[i] = select[i]['linename'];
 					operationStaffId[i] = select[i]['operationStaffId'];
 					operateUnit[i] = select[i]['operateUnit'];
 					operateTime[i] = select[i]['operateTime'];
-					tons[i] = select[i]['tons'];
-					remark[i] = select[i]['remark'];
-					cancel[i] = select[i]['cancel'];
+					ton[i] = select[i]['ton'];
+					description[i] = select[i]['description'];
+					useable[i] = select[i]['useable'];
 				}
 
 				// 获取输入框中数据
-				var plateId = $("#plateIdUp").val();
-				var acceptTrader = $("#acceptTraderUp").val();
+				var busnumber = $("#busnumberUp").val();
+				var carrier = $("#carrierUp").val();
 				//var driver = $("#driverUp").val();
 				//获取司机下拉框的值
 				var staffId = "";
@@ -462,51 +453,51 @@
 					}
 				}
 				var driver = staffId;
-				var telephone = $("#telephoneUp").val();
+				var driverphone = $("#driverphoneUp").val();
 				
 				//获取车型下拉框的值
 				var subsetId = "";
 				//获取基础档案的Id
-				for (var i = 0; i < $("#motorcycleTypeUp").children().length; i++) {
-					if ($("#motorcycleTypeUp").children()[i].selected) {
-						subsetId = $($("#motorcycleTypeUp").children()[i]).attr("id");
+				for (var i = 0; i < $("#bustypeUp").children().length; i++) {
+					if ($("#bustypeUp").children()[i].selected) {
+						subsetId = $($("#bustypeUp").children()[i]).attr("id");
 					}
 				}
 				
-				var motorcycleType = subsetId;
+				var bustype = subsetId;
 				
-				//var routeType = $("#routeTypeUp").val();
+				//var linetype = $("#linetypeUp").val();
 				//获取线路类型下拉框的值
 				var subsetId = "";
 				//获取基础档案的Id
-				for (var i = 0; i < $("#routeTypeUp").children().length; i++) {
-					if ($("#routeTypeUp").children()[i].selected) {
-						subsetId = $($("#routeTypeUp").children()[i]).attr("id");
+				for (var i = 0; i < $("#linetypeUp").children().length; i++) {
+					if ($("#linetypeUp").children()[i].selected) {
+						subsetId = $($("#linetypeUp").children()[i]).attr("id");
 					}
 				}
-				var routeType = subsetId;
-				var routeName = $("#routeNameUp").val();
+				var linetype = subsetId;
+				var linename = $("#linenameUp").val();
 				var operationStaffId = $("#operationStaffIdUp").val();
 				var operateUnit = $("#operateUnitUp").val();
 				var operateTime = $("#operateTimeUp").val();
-				var tons = $("#tonsUp").val();
-				var remark = $("#remarkUp").val();
-				var cancel = $("#cancelUp").val();
+				var ton = $("#tonUp").val();
+				var description = $("#descriptionUp").val();
+				var useable = $("#useableUp").val();
 
 				$.ajax({
 					type : "post",
 					url : '${APP_PATH}/bus/update',
 					data : {
-						plateId : plateId,
-						acceptTrader : acceptTrader,
+						busnumber : busnumber,
+						carrier : carrier,
 						driver : driver,
-						telephone : telephone,
-						motorcycleType : motorcycleType,
-						routeType : routeType,
-						routeName : routeName,
-						tons : tons,
-						remark : remark,
-						cancel : cancel,
+						driverphone : driverphone,
+						bustype : bustype,
+						linetype : linetype,
+						linename : linename,
+						ton : ton,
+						description : description,
+						useable : useable,
 						busId : busId
 					},
 					success : function(msg) {
@@ -531,8 +522,8 @@
 						type : "warning", // 弹出框类型
 						confirmButtonColor : "#DD6B55",// 确定按钮颜色
 						confirmButtonText : "确定删除",// 确定按钮上面的文档
-						cancelButtonText : "取消",// 取消按钮文本
-						showCancelButton : true, // 是否显示取消按钮
+						useableButtonText : "取消",// 取消按钮文本
+						showuseableButton : true, // 是否显示取消按钮
 						closeOnConfirm : true
 					}, function() {
 						var arrs = [];
@@ -623,7 +614,7 @@
 		 
 	});
 
-	function cancel() {
+	function useable() {
 		$('body').css('overflow', 'auto');
 		$('body').css('padding-right', '0px');
 		$('.model').addClass('hide');
@@ -663,7 +654,7 @@
 				for(var i=0;i<response.length;i++) {
 					html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
 				}
-				$("#motorcycleTypeAdd").append(html);
+				$("#bustypeAdd").append(html);
 				$(".selectpicker").selectpicker("refresh");
 			}
 		});
@@ -677,7 +668,7 @@
 				for(var i=0;i<response.length;i++) {
 					html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
 				}
-				$("#routeTypeAdd").append(html);
+				$("#linetypeAdd").append(html);
 				$(".selectpicker").selectpicker("refresh");
 			}
 		});
@@ -688,25 +679,25 @@
 	//清除方法
 	function clean() {
 		$("#driverAdd").children("option").remove();
-		$("#motorcycleTypeAdd").children("option").remove();
-		$("#routeTypeAdd").children("option").remove();
+		$("#bustypeAdd").children("option").remove();
+		$("#linetypeAdd").children("option").remove();
 		
 		$("#driverUp").children("option").remove();
-		$("#motorcycleTypeUp").children("option").remove();
-		$("#routeTypeUp").children("option").remove();
+		$("#bustypeUp").children("option").remove();
+		$("#linetypeUp").children("option").remove();
 		
 	}
 
 	//===================================================================校验
 
 	//清除提示
-	function cancelPrompt(obj) {
+	function useablePrompt(obj) {
 		$("#"+obj.id + "_prompt").text("");
 	};
 
 	//修改按钮再次验证
 	function verificationU(){
-		checkPhoneU(updateTelephone);
+		checkPhoneU(updatedriverphone);
 	};
 	//添加校验
 	function validator(){
@@ -718,7 +709,7 @@
 			validating: 'glyphicon glyphicon-refresh'
 		},
 	    fields: {
-	    	plateIdAdd: {
+	    	busnumberAdd: {
 	             message: '车牌号验证失败!',
 	             validators: {
 	             notEmpty: {
@@ -735,7 +726,7 @@
 	                }
 	              }
 	            },
-	            acceptTraderAdd: {
+	            carrierAdd: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '承运商不能为空!'
@@ -746,7 +737,7 @@
 	                        }
 	                 }
 	             },
-	             telephoneAdd: {
+	             driverphoneAdd: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '电话不能为空!'
@@ -757,7 +748,7 @@
 	                     }
 	                 }
 	             },
-	             routeNameAdd: {
+	             linenameAdd: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '线路名称不能为空!'
@@ -784,7 +775,7 @@
 	                     
 	                 }
 	             },
-	             tonsAdd: {
+	             tonAdd: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '吨控不能为空!'
@@ -805,7 +796,7 @@
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
-	    	plateIdUp: {
+	    	busnumberUp: {
 	             message: '车牌号验证失败!',
 	             validators: {
 	             notEmpty: {
@@ -822,7 +813,7 @@
 	                }
 	              }
 	            },
-	            acceptTraderUp: {
+	            carrierUp: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '承运商不能为空!'
@@ -833,7 +824,7 @@
 	                        }
 	                 }
 	             },
-	             telephoneUp: {
+	             driverphoneUp: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '电话不能为空!'
@@ -844,7 +835,7 @@
 	                     }
 	                 }
 	             },
-	             routeNameUp: {
+	             linenameUp: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '线路名称不能为空!'
@@ -871,7 +862,7 @@
 	                     
 	                 }
 	             },
-	             tonsUp: {
+	             tonUp: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '吨控不能为空!'
@@ -946,15 +937,15 @@
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">车牌号</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="plateIdAdd" name="plateIdAdd"
+										<input type="text" class="form-control" id="busnumberAdd" name="busnumberAdd"
 											placeholder="请输入车牌号">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">承运商</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="acceptTraderAdd"
-											name="acceptTraderAdd" placeholder="请输入承运商">
+										<input type="text" class="form-control" id="carrierAdd"
+											name="carrierAdd" placeholder="请输入承运商">
 									</div>
 								</div>
 								<div class="form-group">
@@ -967,29 +958,29 @@
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">电话</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="telephoneAdd"
-											name="telephoneAdd" placeholder="请输入电话号码">
+										<input type="text" class="form-control" id="driverphoneAdd"
+											name="driverphoneAdd" placeholder="请输入电话号码">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">车型</label>
 									<div class="col-sm-8">
-										<select class="form-control" id="motorcycleTypeAdd" name="motorcycleTypeAdd">
+										<select class="form-control" id="bustypeAdd" name="bustypeAdd">
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="firstname" class="col-sm-3 control-label">线路类型</label>
 									<div class="col-sm-8">
-										<select class="form-control" id="routeTypeAdd" name="routeTypeAdd">
+										<select class="form-control" id="linetypeAdd" name="linetypeAdd">
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">线路名称</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="routeNameAdd"
-											name="routeNameAdd" placeholder="请输入线路名称">
+										<input type="text" class="form-control" id="linenameAdd"
+											name="linenameAdd" placeholder="请输入线路名称">
 									</div>
 								</div>
 								<div class="form-group">
@@ -1009,21 +1000,21 @@
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">吨控</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="tonsAdd"
-											name="tonsAdd" placeholder="吨控(必输项)">
+										<input type="text" class="form-control" id="tonAdd"
+											name="tonAdd" placeholder="吨控(必输项)">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">备注</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="remarkAdd"
+										<input type="text" class="form-control" id="descriptionAdd"
 											placeholder="备注">	
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">作废</label>
 									<div class="col-sm-8">
-										<select class="form-control" id="cancelAdd">
+										<select class="form-control" id="useableAdd">
 											<option value="0">激活</option>
 										</select>			
 									</div>
@@ -1060,15 +1051,15 @@
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">车牌号</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="plateIdUp" name="plateIdUp"
+									<input type="text" class="form-control" id="busnumberUp" name="busnumberUp"
 										placeholder="请输入车牌号">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">承运商</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="acceptTraderUp"
-										name="acceptTraderUp" placeholder="请输入承运商">
+									<input type="text" class="form-control" id="carrierUp"
+										name="carrierUp" placeholder="请输入承运商">
 								</div>
 							</div>
 							<div class="form-group">
@@ -1081,29 +1072,29 @@
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">电话</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="telephoneUp"
-										name="telephoneUp" placeholder="请输入电话号码">
+									<input type="text" class="form-control" id="driverphoneUp"
+										name="driverphoneUp" placeholder="请输入电话号码">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">车型</label>
 								<div class="col-sm-8">
-									<select class="form-control" id="motorcycleTypeUp" name="motorcycleTypeUp">
+									<select class="form-control" id="bustypeUp" name="bustypeUp">
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="firstname" class="col-sm-3 control-label">线路类型</label>
 								<div class="col-sm-8">
-									<select class="form-control" id="routeTypeUp" name="routeTypeUp">
+									<select class="form-control" id="linetypeUp" name="linetypeUp">
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">线路名称</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="routeNameUp"
-										name="routeNameUp" placeholder="请输入线路名称">
+									<input type="text" class="form-control" id="linenameUp"
+										name="linenameUp" placeholder="请输入线路名称">
 								</div>
 							</div>
 							<div class="form-group">
@@ -1123,21 +1114,21 @@
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">吨控</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="tonsUp"
-										name="tonsUp" placeholder="吨控(必输项)">
+									<input type="text" class="form-control" id="tonUp"
+										name="tonUp" placeholder="吨控(必输项)">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">备注</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="remarkUp"
-										name="remarkUp" placeholder="备注">	
+									<input type="text" class="form-control" id="descriptionUp"
+										name="descriptionUp" placeholder="备注">	
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">作废</label>
 								<div class="col-sm-8">
-									<select class="form-control" id="cancelUp">
+									<select class="form-control" id="useableUp">
 										<option value="0">激活</option>
 										<option value="1">作废</option>
 									</select>			
