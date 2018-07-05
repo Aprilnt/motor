@@ -121,7 +121,7 @@
 		// 初始化Table
 		oTableInit.Init = function() {
 			$('#tb_departments').bootstrapTable({
-				url : '${APP_PATH}/bus/findAllPageQuery.action', // 请求后台的URL（*）
+				url : '${APP_PATH}/bus/findAllPageQuery', // 请求后台的URL（*）
 				method : 'get', // 请求方式（*）
 				toolbar : '#toolbar', // 工具按钮用哪个容器
 				striped : true, // 是否显示行间隔色
@@ -276,7 +276,7 @@
 					// 异步同步数据库
 					$.ajax({
 						type : "post",
-						url : '${APP_PATH}/bus/add.action',
+						url : '${APP_PATH}/bus/add',
 						data : {
 							plateId : plateId,
 							acceptTrader : acceptTrader,
@@ -364,7 +364,7 @@
 				clean();
 				//司机名
 				$.ajax({
-					url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery.action',
+					url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery',
 					type:"post",
 					async:true,
 					success:function(response){
@@ -381,7 +381,7 @@
 				$.ajax({
 					type:"post",
 					async:false,
-					url : '${APP_PATH}/bus/findAllArchivesAndIdQuery.action',
+					url : '${APP_PATH}/bus/findAllArchivesAndIdQuery',
 					success:function(response){
 						var html = "<option>请选择车型</option>";
 						for(var i=0;i<response.length;i++) {
@@ -395,7 +395,7 @@
 				$.ajax({
 					type:"post",
 					async:false,
-					url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery.action',
+					url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery',
 					success:function(response){
 						var html = "<option>请选择线路类型</option>";
 						for(var i=0;i<response.length;i++) {
@@ -495,7 +495,7 @@
 
 				$.ajax({
 					type : "post",
-					url : '${APP_PATH}/bus/update.action',
+					url : '${APP_PATH}/bus/update',
 					data : {
 						plateId : plateId,
 						acceptTrader : acceptTrader,
@@ -546,7 +546,7 @@
 						}
 						$.ajax({
 							type : "post",
-							url : '${APP_PATH}/bus/delete.action',
+							url : '${APP_PATH}/bus/delete',
 							data : {
 								busIds : arrs
 							},
@@ -586,7 +586,7 @@
 	    $("#btn_query").click(function() {
 
 			$('#tb_departments').bootstrapTable("refresh",{
-				url : '${APP_PATH}/bus/findAllPageQuery.action',
+				url : '${APP_PATH}/bus/findAllPageQuery',
 				queryParams : oTable.queryParams
 			});
 		});
@@ -643,7 +643,7 @@
 		$.ajax({
 			type:"post",
 			async:false,
-			url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery.action',
+			url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery',
 			success:function(response){
 				var html = "<option>请选择司机名</option>";
 				for(var i=0;i<response.length;i++) {
@@ -657,7 +657,7 @@
 		$.ajax({
 			type:"post",
 			async:false,
-			url : '${APP_PATH}/bus/findAllArchivesAndIdQuery.action',
+			url : '${APP_PATH}/bus/findAllArchivesAndIdQuery',
 			success:function(response){
 				var html = "<option>请选择车型</option>";
 				for(var i=0;i<response.length;i++) {
@@ -671,7 +671,7 @@
 		$.ajax({
 			type:"post",
 			async:false,
-			url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery.action',
+			url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery',
 			success:function(response){
 				var html = "<option>请选择线路类型</option>";
 				for(var i=0;i<response.length;i++) {

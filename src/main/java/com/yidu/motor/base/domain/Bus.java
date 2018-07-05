@@ -30,6 +30,8 @@ public class Bus {
     private String useable;
 
     private String description;
+    
+	private String operateTime;
 
     private String remark1;
 
@@ -172,4 +174,13 @@ public class Bus {
     public void setRemark3(String remark3) {
         this.remark3 = remark3 == null ? null : remark3.trim();
     }
+
+	public String getOperateTime() {
+		return operateTime;
+	}
+
+	public void setOperateTime(String operateTime) {
+		this.operateTime = operateTime;
+	}
+
 }

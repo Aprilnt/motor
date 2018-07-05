@@ -4,5 +4,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yidu.motor.base.dao.BusDao">
-
+  <!-- 分页查询 -->
+  <select id="baseBuspageQuery" parameterType="hashmap"  resultType="Bus">
+     select * 
+     from t_bus     
+     limit #{pageNumber},#{pageSize}
+  </select>
+  <!-- 查询班车总记录数 -->
+  <select id="findAllBaseBusCount" resultType="int">
+  	select count(*) 
+  	from t_bus
+  </select>
+  <!-- 添加班车 -->
+  <insert id="addBaseBus" parameterType="Bus" > 
+      insert into t_bus(busId,plateId,carrier,driver,telephone,motorcycleType,
+      routeType,routeName,operationStaffId,operateUnit,operateTime,tons,remark,cancel)
+      values(#{busId},#{plateId},#{carrier},#{driver},
+      #{telephone},#{motorcycleType},#{routeType},#{routeName},#{operationStaffId},
+      #{operateUnit},#{operateTime},#{tons},#{remark},#{cancel})
+      
+  </insert>
+  <!-- 修改班车信息 -->
+  <update id="updateBaseBus" parameterType="Bus">
+      update t_bus set plateId = #{plateId},carrier = #{carrier},driver = #{driver},
+      	telephone = #{telephone},motorcycleType = #{motorcycleType},routeType = #{routeType},
+      	routeName = #{routeName},tons = #{tons},remark = #{remark},cancel = #{cancel} where busId=#{busId}
+      
+  </update>
+  <!-- 删除班车(逻辑删除) -->
+  <delete id="deleteBaseBus" parameterType="string">
+      update t_bus 
+      set cancel = 1 
+      where busId = #{busId}
+  </delete>
 </mapper>

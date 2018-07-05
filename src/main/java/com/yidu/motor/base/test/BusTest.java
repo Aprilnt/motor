@@ -16,7 +16,7 @@ public class BusTest {
 	BusService busService;
 	ApplicationContext ctx=new ClassPathXmlApplicationContext("classpath:config/spring/spring-base.xml");
 	BusDao busDao=ctx.getBean(BusDao.class);
-	@Test
+/*	@Test
 	public void testqueryAllBus(){
 		List<Bus> busList=busDao.queryAllBus();
 		for (Bus bus : busList) {
@@ -31,4 +31,4 @@ public class BusTest {
 		}
 
 	}
-}
+*/}
