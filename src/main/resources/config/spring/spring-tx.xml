@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd ">
+
+	<!-- 5.配置事务管理器 PlatformTransactionManager的实现类:DataSourceTransactionManager -->
+    <bean id="txManager" 
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+    	<property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <!-- 6.配置事务通知:  -->
+    <tx:advice id="tx" transaction-manager="txManager">
+    	<!-- 配置事务的属性 -->
+    	<tx:attributes>
+    	    <!-- 需要进行事务管理的方法名字后都Tx *Tx-->
+    		<tx:method name="*" isolation="DEFAULT" 
+    		propagation="REQUIRED" read-only="false" timeout="-1"/>
+    	</tx:attributes>
+    </tx:advice>
+    
+    <!-- 7.配置事务代理，这里采用Spring-AOP的aspectJ方式配置 -->
+    <aop:config>
+    	<aop:pointcut expression="execution(* com.yidu.motor.*.service..*.*Tx(..))" id="txPC"/>
+    	<aop:advisor advice-ref="tx" pointcut-ref="txPC"/>
+    </aop:config>
+    
+	
+
+</beans>        

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/S3/!svn/ver/1013/noob/src/main/resources/config/spring
+END
+spring-shiro.xml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/S3/!svn/ver/456/noob/src/main/resources/config/spring/spring-shiro.xml
+END
+spring-mvc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/S3/!svn/ver/981/noob/src/main/resources/config/spring/spring-mvc.xml
+END
+spring-service.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/S3/!svn/ver/1007/noob/src/main/resources/config/spring/spring-service.xml
+END
+spring-dao.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/S3/!svn/ver/981/noob/src/main/resources/config/spring/spring-dao.xml
+END
+spring-redis.xml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/S3/!svn/ver/981/noob/src/main/resources/config/spring/spring-redis.xml
+END
+spring.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/S3/!svn/ver/1013/noob/src/main/resources/config/spring/spring.xml
+END

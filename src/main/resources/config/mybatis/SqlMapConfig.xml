@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--1. 配置MyBatis的一些设置-->
+	<settings>
+		<!-- 使用二级缓存  总开关-->
+    	<setting name="cacheEnabled" value="true"/>
+    	<!-- 是否延迟加载 -->
+    	<setting name="lazyLoadingEnabled" value="true"/>
+    	<!-- 是否积极加载 -->
+    	<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+	<!--2.配置别名 -->
+	<typeAliases>
+		<package name="com.yidu.motor.base.domain"/>
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!--分页参数合理化  -->
+			<property name="reasonable" value="true"/>
+		</plugin>
+	</plugins>	
+	<!-- 3.配置映射文件 -->
+	<mappers>
+		<package name="com.yidu.motor.base.dao"/>
+	</mappers>
+</configuration>
