@@ -44,6 +44,6 @@ public interface BusService {
 	 * @param busId 班车Id
 	 * @return 删除成功返回true否则返回false
 	 */
-	boolean deleteBaseBus(String busId);
+	boolean deleteBaseBus(String busid);
 	
 }

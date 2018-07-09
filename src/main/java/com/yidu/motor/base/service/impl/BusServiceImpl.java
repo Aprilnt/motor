@@ -99,9 +99,9 @@ public class BusServiceImpl implements BusService {
 	 * @param busId 班车Id
 	 * @return 删除成功返回true否则返回false
 	 */
-	public boolean deleteBaseBus(String busId) {
+	public boolean deleteBaseBus(String busid) {
 		//判断删除班车对象是否==1
-		if(busDao.deleteBaseBus(busId) == 1) {
+		if(busDao.deleteBaseBus(busid) == 1) {
 			return true;
 		}else {
 			return false;

@@ -149,7 +149,7 @@
 				showRefresh : true, // 是否显示刷新按钮
 				minimumCountColumns : 2, // 最少允许的列数
 				clickToSelect : true, // 是否启用点击选中行
-				uniqueId : "busId", // 每一行的唯一标识，一般为主键列
+				uniqueId : "busid", // 每一行的唯一标识，一般为主键列
 				showToggle : true, // 是否显示详细视图和列表视图的切换按钮
 				cardView : false, // 是否显示详细视图
 				detailView : false, // 是否显示父子表
@@ -186,7 +186,7 @@
 					field : 'useable',
 					title : '状态',
 					formatter : function(value, row, index) {
-						if (row.useable == '0') {
+						if (row.useable == 'Y') {
 							return '激活';
 						} else {
 							return '作废';
@@ -214,39 +214,8 @@
 				
 				var busnumber = $("#busnumberAdd").val();
 				var carrier = $("#carrierAdd").val();
-				//获取司机下拉框的值
-				var staffId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#driverAdd").children().length; i++) {
-					if ($("#driverAdd").children()[i].selected) {
-						staffId = $($("#driverAdd").children()[i]).attr("id");
-					}
-				}
-				var driver = staffId;
 				var driverphone = $("#driverphoneAdd").val();
-				//获取车型下拉框的值
-				var subsetId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#bustypeAdd").children().length; i++) {
-					if ($("#bustypeAdd").children()[i].selected) {
-						subsetId = $($("#bustypeAdd").children()[i]).attr("id");
-					}
-				}
-				var bustype = subsetId;
-				//获取线路类型下拉框的值
-				var subsetId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#linetypeAdd").children().length; i++) {
-					if ($("#linetypeAdd").children()[i].selected) {
-						subsetId = $($("#linetypeAdd").children()[i]).attr("id");
-					}
-				}
-				var linetype = subsetId;
 				var linename = $("#linenameAdd").val();
-				var operationStaffId = $("#operationStaffIdAdd").val();
-				var operateUnit = $("#orgName").val();
-				alert(operateUnit);
-				var operateTime = $("#operateTimeAdd").val();
 				var ton = $("#tonAdd").val();
 				var description = $("#descriptionAdd").val();
 				var useable = $("#useableAdd").val();
@@ -257,10 +226,6 @@
 					toastr.error('承运商不能为空');
 				} else if (driverphone == null || driverphone == "") {
 					toastr.error('电话不能为空');
-				} else if (operationStaffId == null || operationStaffId == "") {
-					toastr.error('操作人不能为空');
-				} else if (operateUnit == null || operateUnit == "") {
-					toastr.error('操作单位不能为空');
 				} else if (ton == null || ton == "") {
 					toastr.error('吨控不能为空');
 				} else {
@@ -271,13 +236,8 @@
 						data : {
 							busnumber : busnumber,
 							carrier : carrier,
-							driver : driver,
 							driverphone : driverphone,
-							bustype : bustype,
-							linetype : linetype,
 							linename : linename,
-							operationStaffId : operationStaffId,
-							operateUnit : operateUnit,
 							ton : ton,
 							description : description,
 							useable : useable
@@ -305,14 +265,8 @@
 				} else {
 					var busnumber = [];
 					var carrier = [];
-					var driver = [];
 					var driverphone = [];
-					var bustype = [];
-					var linetype = [];
 					var linename = [];
-					var operationStaffId = [];
-					var operateUnit = [];
-					var operateTime = [];
 					var ton = [];
 					var description = [];
 					var useable = [];
@@ -320,14 +274,8 @@
 					for (var i = 0; i < select.length; i++) {
 						busnumber[i] = select[i]['busnumber'];
 						carrier[i] = select[i]['carrier'];
-						driver[i] = select[i]['driver'];
 						driverphone[i] = select[i]['driverphone'];
-						bustype[i] = select[i]['bustype'];
-						linetype[i] = select[i]['linetype'];
 						linename[i] = select[i]['linename'];
-						operationStaffId[i] = select[i]['operationStaffId'];
-						operateUnit[i] = select[i]['operateUnit'];
-						operateTime[i] = select[i]['operateTime'];
 						ton[i] = select[i]['ton'];
 						description[i] = select[i]['description'];
 						useable[i] = select[i]['useable'];
@@ -336,14 +284,8 @@
 					// 给模态框赋值
 					$("#busnumberUp").attr("value", busnumber);
 					$("#carrierUp").attr("value", carrier);
-					$("#driverUp").attr("value", driver);
 					$("#driverphoneUp").attr("value", driverphone);
-					$("#bustypeUp").attr("value", bustype);
-					$("#linetypeUp").attr("value", linetype);
 					$("#linenameUp").attr("value", linename);
-					$("#operationStaffIdUp").attr("value", operationStaffId);
-					$("#operateUnitUp").attr("value", operateUnit);
-					$("#operateTimeUp").attr("value", operateTime);
 					$("#tonUp").attr("value", ton);
 					$("#descriptionUp").attr("value", description);
 					$("#useableUp").attr("value", useable);
@@ -352,50 +294,7 @@
 				
 				}
 				
-				clean();
-				//司机名
-				$.ajax({
-					url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery',
-					type:"post",
-					async:true,
-					success:function(response){
-						var html = "<option>请选择司机名</option>";
-						for(var i=0;i<response.length;i++) {
-							html = html+"<option id='"+response[i].staffId+"'>"+response[i].subsetName+"</option>";
-						}
-						$("#driverUp").append(html);
-						$(".selectpicker").selectpicker("refresh");
-					}
-					
-				});
-				//车型
-				$.ajax({
-					type:"post",
-					async:false,
-					url : '${APP_PATH}/bus/findAllArchivesAndIdQuery',
-					success:function(response){
-						var html = "<option>请选择车型</option>";
-						for(var i=0;i<response.length;i++) {
-							html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
-						}
-						$("#bustypeUp").append(html);
-						$(".selectpicker").selectpicker("refresh");
-					}
-				});
-				//线路类型
-				$.ajax({
-					type:"post",
-					async:false,
-					url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery',
-					success:function(response){
-						var html = "<option>请选择线路类型</option>";
-						for(var i=0;i<response.length;i++) {
-							html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
-						}
-						$("#linetypeUp").append(html);
-						$(".selectpicker").selectpicker("refresh");
-					}
-				});
+				/* clean(); */
 				$("#updateBusFrom").data('bootstrapValidator').destroy();
 				$('#updateBusFrom').data('bootstrapValidator', null);
 				validatorU();
@@ -408,33 +307,21 @@
 				// 获取单行数据
 				var select = $('#tb_departments').bootstrapTable('getSelections');
 
-				var busId = "";
+				var busid = "";
 				var busnumber = [];
 				var carrier = [];
-				var driver = [];
 				var driverphone = [];
-				var bustype = [];
-				var linetype = [];
 				var linename = [];
-				var operationStaffId = [];
-				var operateUnit = [];
-				var operateTime = [];
 				var ton = [];
 				var description = [];
 				var useable = [];
 				// 获取单行数据
 				for (var i = 0; i < select.length; i++) {
-					busId = select[i]['busId'];
+					busid = select[i]['busid'];
 					busnumber[i] = select[i]['busnumber'];
 					carrier[i] = select[i]['carrier'];
-					driver[i] = select[i]['driver'];
 					driverphone[i] = select[i]['driverphone'];
-					bustype[i] = select[i]['bustype'];
-					linetype[i] = select[i]['linetype'];
 					linename[i] = select[i]['linename'];
-					operationStaffId[i] = select[i]['operationStaffId'];
-					operateUnit[i] = select[i]['operateUnit'];
-					operateTime[i] = select[i]['operateTime'];
 					ton[i] = select[i]['ton'];
 					description[i] = select[i]['description'];
 					useable[i] = select[i]['useable'];
@@ -444,42 +331,9 @@
 				var busnumber = $("#busnumberUp").val();
 				var carrier = $("#carrierUp").val();
 				//var driver = $("#driverUp").val();
-				//获取司机下拉框的值
-				var staffId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#driverUp").children().length; i++) {
-					if ($("#driverUp").children()[i].selected) {
-						staffId = $($("#driverUp").children()[i]).attr("id");
-					}
-				}
-				var driver = staffId;
 				var driverphone = $("#driverphoneUp").val();
 				
-				//获取车型下拉框的值
-				var subsetId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#bustypeUp").children().length; i++) {
-					if ($("#bustypeUp").children()[i].selected) {
-						subsetId = $($("#bustypeUp").children()[i]).attr("id");
-					}
-				}
-				
-				var bustype = subsetId;
-				
-				//var linetype = $("#linetypeUp").val();
-				//获取线路类型下拉框的值
-				var subsetId = "";
-				//获取基础档案的Id
-				for (var i = 0; i < $("#linetypeUp").children().length; i++) {
-					if ($("#linetypeUp").children()[i].selected) {
-						subsetId = $($("#linetypeUp").children()[i]).attr("id");
-					}
-				}
-				var linetype = subsetId;
 				var linename = $("#linenameUp").val();
-				var operationStaffId = $("#operationStaffIdUp").val();
-				var operateUnit = $("#operateUnitUp").val();
-				var operateTime = $("#operateTimeUp").val();
 				var ton = $("#tonUp").val();
 				var description = $("#descriptionUp").val();
 				var useable = $("#useableUp").val();
@@ -490,15 +344,12 @@
 					data : {
 						busnumber : busnumber,
 						carrier : carrier,
-						driver : driver,
 						driverphone : driverphone,
-						bustype : bustype,
-						linetype : linetype,
 						linename : linename,
 						ton : ton,
 						description : description,
 						useable : useable,
-						busId : busId
+						busid : busid
 					},
 					success : function(msg) {
 						if (msg == "true") {
@@ -528,10 +379,10 @@
 					}, function() {
 						var arrs = [];
 						for (var i = 0; i < select.length; i++) {
-							arrs[i] = select[i]['busId'];
+							arrs[i] = select[i]['busid'];
 
 							$('#tb_departments').bootstrapTable('remove', {
-								field : 'busId',
+								field : 'busid',
 								values : arrs
 							});
 						}
@@ -539,7 +390,7 @@
 							type : "post",
 							url : '${APP_PATH}/bus/delete',
 							data : {
-								busIds : arrs
+								busids : arrs
 							},
 							success : function(result) {
 								if (result == "success") {
@@ -584,8 +435,8 @@
 	    
 	    //新增按钮
 		$("#btn_add").click(function() {
-			clean(); 
-			getDataInsert();
+			/* clean();  */
+			/* getDataInsert(); */
 			$("#addBusFrom").data('bootstrapValidator').destroy();
 			$('#addBusFrom').data('bootstrapValidator', null);
 			validator();
@@ -628,58 +479,9 @@
 		return false;
 	}
 
-	//获取各种下拉列表的数据
-	function getDataInsert(){
-		//司机名
-		$.ajax({
-			type:"post",
-			async:false,
-			url : '${APP_PATH}/bus/findAllSubsetNameAndIdQuery',
-			success:function(response){
-				var html = "<option>请选择司机名</option>";
-				for(var i=0;i<response.length;i++) {
-					html = html+"<option id='"+response[i].staffId+"'>"+response[i].subsetName+"</option>";
-				}
-				$("#driverAdd").append(html);
-				$(".selectpicker").selectpicker("refresh");
-			}
-		});
-		//车型
-		$.ajax({
-			type:"post",
-			async:false,
-			url : '${APP_PATH}/bus/findAllArchivesAndIdQuery',
-			success:function(response){
-				var html = "<option>请选择车型</option>";
-				for(var i=0;i<response.length;i++) {
-					html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
-				}
-				$("#bustypeAdd").append(html);
-				$(".selectpicker").selectpicker("refresh");
-			}
-		});
-		//线路类型
-		$.ajax({
-			type:"post",
-			async:false,
-			url : '${APP_PATH}/bus/findAllArchivesNameAndIdQuery',
-			success:function(response){
-				var html = "<option>请选择线路类型</option>";
-				for(var i=0;i<response.length;i++) {
-					html = html+"<option id='"+response[i].subsetId+"'>"+response[i].subsetName+"</option>";
-				}
-				$("#linetypeAdd").append(html);
-				$(".selectpicker").selectpicker("refresh");
-			}
-		});
-		
-		
-	} 
-
 	//清除方法
 	function clean() {
 		$("#driverAdd").children("option").remove();
-		$("#bustypeAdd").children("option").remove();
 		$("#linetypeAdd").children("option").remove();
 		
 		$("#driverUp").children("option").remove();
@@ -755,27 +557,11 @@
 	                     },
 	                     regexp: {
 	                         regexp: /^[\u4E00-\u9FA5]{2,4}$/,
-	                         message: '职员名只能为中文例如:张三!'
+	                         message: '线路名只能为中文例如:张三!'
 	                        }
 	                 }
 	             },
-	             operationStaffIdAdd: {
-	                 validators: {
-	                     notEmpty: {
-	                         message: '操作人不能为空!'
-	                     },
-	                     
-	                 }
-	             },
-	             operateUnitAdd: {
-	                 validators: {
-	                     notEmpty: {
-	                         message: '操作单位不能为空!'
-	                     },
-	                     
-	                 }
-	             },
-	             tonAdd: {
+	            	 tonAdd: {
 	                 validators: {
 	                     notEmpty: {
 	                         message: '吨控不能为空!'
@@ -820,7 +606,7 @@
 	                     },
 	                     regexp: {
 	                         regexp: /^[\u4E00-\u9FA5]{2,4}$/,
-	                         message: '职员名只能为中文例如:张三!'
+	                         message: '承运商只能为中文例如:张三!'
 	                        }
 	                 }
 	             },
@@ -842,24 +628,8 @@
 	                     },
 	                     regexp: {
 	                         regexp: /^[\u4E00-\u9FA5]{2,4}$/,
-	                         message: '职员名只能为中文例如:张三!'
+	                         message: '线路名只能为中文例如:张三!'
 	                        }
-	                 }
-	             },
-	             operationStaffIdUp: {
-	                 validators: {
-	                     notEmpty: {
-	                         message: '操作人不能为空!'
-	                     },
-	                     
-	                 }
-	             },
-	             operateUnitUp: {
-	                 validators: {
-	                     notEmpty: {
-	                         message: '操作单位不能为空!'
-	                     },
-	                     
 	                 }
 	             },
 	             tonUp: {
@@ -949,13 +719,6 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="lastname" class="col-sm-3 control-label">司机</label>
-									<div class="col-sm-8">
-										<select class="form-control" id="driverAdd" name="driverAdd">
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">电话</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="driverphoneAdd"
@@ -963,38 +726,10 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="lastname" class="col-sm-3 control-label">车型</label>
-									<div class="col-sm-8">
-										<select class="form-control" id="bustypeAdd" name="bustypeAdd">
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="firstname" class="col-sm-3 control-label">线路类型</label>
-									<div class="col-sm-8">
-										<select class="form-control" id="linetypeAdd" name="linetypeAdd">
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">线路名称</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="linenameAdd"
 											name="linenameAdd" placeholder="请输入线路名称">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="lastname" class="col-sm-3 control-label">操作人</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="operationStaffIdAdd"
-											name="operationStaffIdAdd" value="<%=userName %>" disabled/>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="lastname" class="col-sm-3 control-label">操作单位</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="operateUnitAdd"
-											name="operateUnitAdd" value="<%=orgName %>" disabled/>
 									</div>
 								</div>
 								<div class="form-group">
@@ -1063,13 +798,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">司机</label>
-								<div class="col-sm-8">
-									<select class="form-control" id="driverUp" name="driverUp">
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">电话</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="driverphoneUp"
@@ -1077,38 +805,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">车型</label>
-								<div class="col-sm-8">
-									<select class="form-control" id="bustypeUp" name="bustypeUp">
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="firstname" class="col-sm-3 control-label">线路类型</label>
-								<div class="col-sm-8">
-									<select class="form-control" id="linetypeUp" name="linetypeUp">
-									</select>
-								</div>
-							</div>
-							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">线路名称</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="linenameUp"
 										name="linenameUp" placeholder="请输入线路名称">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">操作人</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" id="operationStaffIdUp"
-										name="operationStaffIdUp" value="<%=userName %>" disabled/>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">操作单位</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" id="operateUnitUp"
-										name="operateUnitUp" value="<%=orgName%>" disabled/>
 								</div>
 							</div>
 							<div class="form-group">

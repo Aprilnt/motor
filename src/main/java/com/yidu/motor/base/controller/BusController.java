@@ -109,12 +109,12 @@ public class BusController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete",method= {RequestMethod.POST})
-	public String delete(@RequestParam(value="busIds[]")String[] busIds)throws Exception{
+	public String delete(@RequestParam(value="busids[]")String[] busids)throws Exception{
 		boolean result = false;
 		//利用增强的for循环获取班车Id
-		for(String busId:busIds) {
+		for(String busid:busids) {
 			//调用业务逻辑层的删除方法
-			result = busService.deleteBaseBus(busId);
+			result = busService.deleteBaseBus(busid);
 		}
 		//判断删除是否成功
 		if(result) {

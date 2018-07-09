@@ -33,5 +33,5 @@ public interface BusDao {
 	 * @param busId 班车Id
 	 * @return 删除成功返回1否则返回0
 	 */
-	int deleteBaseBus(String busId);
+	int deleteBaseBus(String busid);
 }

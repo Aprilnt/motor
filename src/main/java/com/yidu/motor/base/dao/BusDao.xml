@@ -7,8 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 分页查询 -->
   <select id="baseBuspageQuery" parameterType="hashmap"  resultType="Bus">
      select * 
-     from t_bus     
-     limit #{pageNumber},#{pageSize}
+     from t_bus
+     where 1=1
+     	<if test='carrier != null and carrier != "" '>
+			and carrier like '%${carrier}%'
+		</if>
+		<if test="driver != null and driver != '' ">
+			and driver like '%${driver}%'
+		</if>
+		<if test="pageNumber != null and pageSize != null">
+			limit #{pageNumber},#{pageSize}
+		</if>
   </select>
   <!-- 查询班车总记录数 -->
   <select id="findAllBaseBusCount" resultType="int">
@@ -17,24 +26,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   <!-- 添加班车 -->
   <insert id="addBaseBus" parameterType="Bus" > 
-      insert into t_bus(busId,plateId,carrier,driver,telephone,motorcycleType,
-      routeType,routeName,operationStaffId,operateUnit,operateTime,tons,remark,cancel)
-      values(#{busId},#{plateId},#{carrier},#{driver},
-      #{telephone},#{motorcycleType},#{routeType},#{routeName},#{operationStaffId},
-      #{operateUnit},#{operateTime},#{tons},#{remark},#{cancel})
+      insert into t_bus(busid,busNumber,carrier,driverPhone,lineName,
+      ton,description,useAble)
+      values(#{busid},#{busnumber},#{carrier},#{driverphone},
+      #{linename},#{ton},#{description},#{useable})
       
   </insert>
   <!-- 修改班车信息 -->
   <update id="updateBaseBus" parameterType="Bus">
-      update t_bus set plateId = #{plateId},carrier = #{carrier},driver = #{driver},
-      	telephone = #{telephone},motorcycleType = #{motorcycleType},routeType = #{routeType},
-      	routeName = #{routeName},tons = #{tons},remark = #{remark},cancel = #{cancel} where busId=#{busId}
+      update t_bus set busNumber = #{busnumber},carrier = #{carrier},driverPhone = #{driverphone},
+      	lineName = #{linename},ton = #{ton},description = #{description},
+      	useAble = #{useable}  where busid=#{busid}
       
   </update>
   <!-- 删除班车(逻辑删除) -->
   <delete id="deleteBaseBus" parameterType="string">
-      update t_bus 
-      set cancel = 1 
-      where busId = #{busId}
+     delete from t_bus 
+     where busId = #{busid}
   </delete>
 </mapper>
