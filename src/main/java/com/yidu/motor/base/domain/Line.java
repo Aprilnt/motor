@@ -1,6 +1,7 @@
 package com.yidu.motor.base.domain;
 
 public class Line {
+	
     private String lineid;
 
     private String linename;
@@ -25,6 +26,8 @@ public class Line {
 
     private String remark3;
 
+    
+    
     public String getLineid() {
         return lineid;
     }

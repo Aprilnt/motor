@@ -2,7 +2,9 @@ package com.yidu.motor.base.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Line;
 public interface BusDao {
 	/**
 	 * 带条件的分页查询,如果条件为空,就是查询所有班车,并做分页
@@ -34,4 +36,10 @@ public interface BusDao {
 	 * @return 删除成功返回1否则返回0
 	 */
 	int deleteBaseBus(String busid);
+	/**
+	 * 查询所有线路类型和Id
+	 * @return 线路类型和Id的集合
+	 */
+	List<Line> findLineNameAndId();
+	
 }

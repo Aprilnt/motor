@@ -4,44 +4,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yidu.motor.base.dao.BusDao">
-  <!-- 分页查询 -->
-  <select id="baseBuspageQuery" parameterType="hashmap"  resultType="Bus">
-     select * 
-     from t_bus
-     where 1=1
-     	<if test='carrier != null and carrier != "" '>
+	<!-- 分页查询 -->
+	<select id="baseBuspageQuery" parameterType="hashmap"
+		resultType="Bus">
+		select *
+		from t_bus
+		where 1=1
+		<if test='carrier != null and carrier != "" '>
 			and carrier like '%${carrier}%'
 		</if>
+		<!-- <if test='busnumber != null and busnumber != "" '>
+			and busnumber like '%${busnumber}%'
+		</if> -->
+		<!-- <if test='driverphone != null and driverphone != "" '>
+			and driverphone like '%${driverphone}%'
+		</if>
+		<if test='linetype != null and linetype != "" '>
+			and linetype like '%${linetype}%'
+		</if>
+		<if test='linename != null and linename != "" '>
+			and linename like '%${linename}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if> -->
 		<if test="driver != null and driver != '' ">
 			and driver like '%${driver}%'
 		</if>
 		<if test="pageNumber != null and pageSize != null">
 			limit #{pageNumber},#{pageSize}
 		</if>
-  </select>
-  <!-- 查询班车总记录数 -->
-  <select id="findAllBaseBusCount" resultType="int">
-  	select count(*) 
-  	from t_bus
-  </select>
-  <!-- 添加班车 -->
-  <insert id="addBaseBus" parameterType="Bus" > 
-      insert into t_bus(busid,busNumber,carrier,driverPhone,lineName,
-      ton,description,useAble)
-      values(#{busid},#{busnumber},#{carrier},#{driverphone},
-      #{linename},#{ton},#{description},#{useable})
-      
-  </insert>
-  <!-- 修改班车信息 -->
-  <update id="updateBaseBus" parameterType="Bus">
-      update t_bus set busNumber = #{busnumber},carrier = #{carrier},driverPhone = #{driverphone},
-      	lineName = #{linename},ton = #{ton},description = #{description},
-      	useAble = #{useable}  where busid=#{busid}
-      
-  </update>
-  <!-- 删除班车(逻辑删除) -->
-  <delete id="deleteBaseBus" parameterType="string">
-     delete from t_bus 
-     where busId = #{busid}
-  </delete>
+	</select>
+	<!-- 查询班车总记录数 -->
+	<select id="findAllBaseBusCount" resultType="int">
+		select count(*)
+		from t_bus
+	</select>
+	<!-- 添加班车 -->
+	<insert id="addBaseBus" parameterType="Bus">
+		insert into t_bus(busid,busNumber,carrier,driverPhone,lineName,linetype,
+		ton,description,useAble)
+		values(#{busid},#{busnumber},#{carrier},#{driverphone},
+		#{linename},#{linetype},#{ton},#{description},#{useable})
+
+	</insert>
+	<!-- 修改班车信息 -->
+	<update id="updateBaseBus" parameterType="Bus">
+		update t_bus set busNumber = #{busnumber},carrier = #{carrier},driverPhone =
+		#{driverphone},
+		lineName = #{linename},linetype=#{linetype},ton = #{ton},description = #{description},
+		useAble = #{useable} where busid=#{busid}
+
+	</update>
+	<!-- 删除班车(逻辑删除) -->
+	<delete id="deleteBaseBus" parameterType="string">
+		delete from t_bus
+		where busId = #{busid}
+	</delete>
+	<!-- 查询所有线路名 -->
+	<select id="findLineNameAndId" resultType="Line">
+		SELECT  * FROM t_line 
+	</select>
 </mapper>

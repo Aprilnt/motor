@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yidu.motor.util.IDGenerator;
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Line;
 import com.yidu.motor.base.service.BusService;
 @Controller
 @RequestMapping("/bus")
@@ -123,5 +124,15 @@ public class BusController {
 			return "error";
 		}
 	}
-	
+	/**
+	 * 查询所有线路名和Id
+	 * @return 返回业务层的查询方法
+	 * @throws Exception 异常
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findLineNameAndId")
+	public List<Line> findLineNameAndId(){
+		//调用业务逻辑层的查询所有线路名和Id的方法
+		return busService.findLineNameAndId();
+	}
 }

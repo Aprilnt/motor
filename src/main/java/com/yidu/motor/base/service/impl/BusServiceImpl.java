@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.yidu.motor.base.dao.BusDao;
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Line;
 import com.yidu.motor.base.service.BusService;
 @Service
 public class BusServiceImpl implements BusService {
@@ -108,5 +109,12 @@ public class BusServiceImpl implements BusService {
 		}
 		
 		
+	}
+	/**
+	 * 查询所有线路类型和Id
+	 * @return 线路类型和Id的集合
+	 */
+	public List<Line> findLineNameAndId() {
+		return busDao.findLineNameAndId();
 	}
 }
