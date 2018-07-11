@@ -32,7 +32,7 @@ public class BusServiceImpl implements BusService {
 	 * @return 返回班车集合
 	 */
 	public List<Bus> busPageQuery(Integer pageSize,Integer pageNumber,
-			String carrier,String driver) {
+			String carrier,String driver,String busnumber,String driverphone,String linetype,String linename,String useable) {
 		//定义一个map集合
 		Map<String,Object> map = new HashMap<String,Object>();
 		//将页码值放入map集合
@@ -43,6 +43,16 @@ public class BusServiceImpl implements BusService {
 		map.put("carrier", carrier);
 		//将司机值放入map集合
 		map.put("driver", driver);
+		//将车牌号值放入map集合
+		map.put("busnumber", busnumber);
+		//将司机电话放入map集合
+		map.put("driverphone", driverphone);
+		//将线路类型放入map集合
+		map.put("linetype", linetype);
+		//将线路名放入map集合
+		map.put("linename", linename);
+		//将是否可用放入map集合
+		map.put("useable", useable);
 		//调用mapper中的查询所有班车的方法
 		return busDao.baseBuspageQuery(map);
 	}
@@ -53,13 +63,24 @@ public class BusServiceImpl implements BusService {
 	 * @param driver 司机
 	 * @return 返回所有总记录数
 	 */
-	public int findAllBaseBusCount(String carrier,String driver) {
+	public int findAllBaseBusCount(String carrier, String driver, String driverphone, String busnumber, String linetype,
+			String linename, String useable) {
 		//定义一个map集合
 		Map<String,Object> map = new HashMap<String,Object>();
 		//将承运商值放入map集合
 		map.put("carrier", carrier);
 		//将司机值放入map集合
 		map.put("driver", driver);
+		//将车牌号值放入map集合
+		map.put("busnumber", busnumber);
+		//将司机电话放入map集合
+		map.put("driverphone", driverphone);
+		//将线路类型放入map集合
+		map.put("linetype", linetype);
+		//将线路名放入map集合
+		map.put("linename", linename);
+		//将是否可用放入map集合
+		map.put("useable", useable);
 		//调用mapper中的查询总记录数的方法
 		return busDao.findAllBaseBusCount(map);
 	}

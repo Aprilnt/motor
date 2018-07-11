@@ -16,7 +16,7 @@ public interface BusService {
 	 * @param driver 司机
 	 * @return 返回班车集合
 	 */
-	List<Bus> busPageQuery(Integer pageSize, Integer pageNumber, String carrier, String driver);
+	List<Bus> busPageQuery(Integer pageSize, Integer pageNumber, String carrier, String driver,String busnumber,String driverphone,String linetype,String linename,String useable);
 	
 	/**
 	 * 查询所有总记录数
@@ -24,7 +24,7 @@ public interface BusService {
 	 * @param driver 司机
 	 * @return 返回所有总记录数
 	 */
-	int findAllBaseBusCount(String carrier,String driver);
+	int findAllBaseBusCount(String carrier,String driver,String driverphone,String busnumber ,String linetype,String linename,String useable);
 	
 	/**
 	 * 添加班车

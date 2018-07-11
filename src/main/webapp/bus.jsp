@@ -136,11 +136,11 @@ p {
 						pageSize : params.pageSize,
 						carrier : $("#txt_search_carrier").val(),
 						driver : $("#txt_search_driver").val(),
-						/* busnumber:$("#txt_search_busnumber").val,
-						driverphone:$("#txt_search_driverphone").val,
-						linetype:$("#txt_search_linetype").val,
-						linename:$("#txt_search_linename").val,
-						userable:$("#txt_search_useable").val */
+						busnumber : $("#txt_search_busnumber").val(),
+						driverphone : $("#txt_search_driverphone").val(),
+						linetype : $("#txt_search_linetype").val(),
+						linename : $("#txt_search_linename").val(),
+						useable : $("#txt_search_useable").val()
 					};
 					return param;
 				},// 传递参数（*）
@@ -148,7 +148,7 @@ p {
 				pageNumber : 1, // 初始化加载第一页，默认第一页
 				pageSize : 10, // 每页的记录行数（*）
 				pageList : [ 5, 10, 15, 20 ], // 可供选择的每页的行数（*）
-				search : true, // 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+				/* search : true, */// 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 				strictSearch : true,
 				showColumns : true, // 是否显示所有的列
 				showRefresh : true, // 是否显示刷新按钮
@@ -173,24 +173,24 @@ p {
 					field : 'driverphone',
 					title : '电话'
 				},/*  {
-																				field : 'bustype',
-																				title : '车型'
-																			}, */{
+																																				field : 'bustype',
+																																				title : '车型'
+																																			}, */{
 					field : 'linetype',
 					title : '线路类型'
 				}, {
 					field : 'linename',
 					title : '线路名称'
 				},/*  {
-																				field : 'operationStaffId',
-																				title : '操作人'
-																			}, {
-																				field : 'operateUnit',
-																				title : '操作单位'
-																			}, {
-																				field : 'operateTime',
-																				title : '操作时间'
-																			}, */{
+																																				field : 'operationStaffId',
+																																				title : '操作人'
+																																			}, {
+																																				field : 'operateUnit',
+																																				title : '操作单位'
+																																			}, {
+																																				field : 'operateTime',
+																																				title : '操作时间'
+																																			}, */{
 					field : 'ton',
 					title : '吨控'
 				}, {
@@ -277,10 +277,10 @@ p {
 										|| driverphone == "") {
 									toastr.error('电话不能为空');
 								}/* else if (operationStaffId == null || operationStaffId == "") {
-																																				toastr.error('操作人不能为空');
-																																			} else if (operateUnit == null || operateUnit == "") {
-																																				toastr.error('操作单位不能为空');
-																																			}  */else if (ton == null
+																																																																				toastr.error('操作人不能为空');
+																																																																			} else if (operateUnit == null || operateUnit == "") {
+																																																																				toastr.error('操作单位不能为空');
+																																																																			}  */else if (ton == null
 										|| ton == "") {
 									toastr.error('吨控不能为空');
 								} else {
@@ -925,73 +925,84 @@ p {
 <body>
 	<div class="panel-body" style="padding-bottom: 0px;">
 		<div class="panel panel-default">
-			<div class="panel-heading">查询条件</div>
-			<div class="panel-body">
-				<form id="formSearch" class="form-horizontal">
-					<div class="form-group" style="margin-top: 15px">
-						<label class="control-label col-sm-1"
-							for="txt_search_busnumber">车牌号</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhcys form-control"
-								id="txt_search_busnumber" placeholder="请输入车牌号">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" href="#collapseOne"> 显示查询条件<span
+						class="caret"></span>
+					</a>
+				</h4>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<form id="formSearch" class="form-horizontal">
+						<div class="form-group" style="margin-top: 15px">
+							<label class="control-label col-sm-1" for="txt_search_busnumber">车牌号</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhcys form-control"
+									id="txt_search_busnumber" placeholder="请输入车牌号">
+							</div>
+							<label class="control-label col-sm-1" for="txt_search_carrier">承运商</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhcys form-control"
+									id="txt_search_carrier" placeholder="请输入承运商">
+							</div>
+							<label class="control-label col-sm-1" for="txt_search_driver">司机</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhsj form-control"
+									id="txt_search_driver" placeholder="请输入司机">
+							</div>
+							<label class="control-label col-sm-1"
+								for="txt_search_driverphone">电话</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhsj form-control"
+									id="txt_search_driverphone" placeholder="请输入电话号码">
+							</div>
 						</div>
-						<label class="control-label col-sm-1"
-							for="txt_search_carrier">承运商</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhcys form-control"
-								id="txt_search_carrier" placeholder="请输入承运商">
+						<div class="form-group" style="margin-top: 15px">
+							<label class="control-label col-sm-1" for="txt_search_linetype">线路类型</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhsj form-control"
+									id="txt_search_linetype" placeholder="请输入线路类型">
+							</div>
+							<label class="control-label col-sm-1" for="txt_search_linename">线路名称</label>
+							<div class="col-sm-2">
+								<input type="text" class="mhsj form-control"
+									id="txt_search_linename" placeholder="请输入线路名称">
+							</div>
+							<label class="control-label col-sm-1" for="txt_search_useable">状态</label>
+							<div class="col-sm-2">
+								<select class="form-control" id="txt_search_useable"
+									name="linetypeAdd">
+									<option value="">选择您要查询的状态</option>
+									<option value="Y">激活</option>
+									<option value="N">作废</option>
+								</select>
+							</div>
+							<div class="col-sm-3" style="text-align: left;">
+								<button type="button" style="margin-left: 50px" id="btn_query"
+									class="btn btn-success">查询</button>
+							</div>
 						</div>
-						<label class="control-label col-sm-1" for="txt_search_driver">司机</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_driver" placeholder="请输入司机">
-						</div>
-						<label class="control-label col-sm-1" for="txt_search_driverphone">电话</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_driverphone" placeholder="请输入电话号码">
-						</div>
-					</div>
-					<div class="form-group" style="margin-top: 15px">
-						<label class="control-label col-sm-1" for="txt_search_linetype">线路类型</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_linetype" placeholder="请输入线路类型">
-						</div>
-						<label class="control-label col-sm-1" for="txt_search_linename">线路名称</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_linename" placeholder="请输入线路名称">
-						</div>
-						<label class="control-label col-sm-1" for="txt_search_useable">状态</label>
-						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_useable" placeholder="请输入状态">
-						</div>
-						<div class="col-sm-3" style="text-align: left;">
-							<button type="button" style="margin-left: 50px" id="btn_query"
-								class="btn btn-success">查询</button>
-						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div id="toolbar" class="btn-group">
 		<shiro:hasPermission name="新增班车">
-			<button id="btn_add" type="button" class="btn btn-default"
+			<button id="btn_add" type="button" class="btn btn-success"
 				data-toggle="modal" data-target="#myModal">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
 			</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="修改班车 ">
-			<button id="btn_edit" type="button" class="btn btn-default">
+			<button id="btn_edit" type="button" class="btn btn-info">
 				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
 			</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="删除班车 ">
-			<button id="btn_delete" type="button" class="btn btn-default">
+			<button id="btn_delete" type="button" class="btn btn-danger">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 			</button>
 		</shiro:hasPermission>

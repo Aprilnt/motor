@@ -13,10 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test='carrier != null and carrier != "" '>
 			and carrier like '%${carrier}%'
 		</if>
-		<!-- <if test='busnumber != null and busnumber != "" '>
+		<if test='busnumber != null and busnumber != "" '>
 			and busnumber like '%${busnumber}%'
-		</if> -->
-		<!-- <if test='driverphone != null and driverphone != "" '>
+		</if>
+		<if test='driverphone != null and driverphone != "" '>
 			and driverphone like '%${driverphone}%'
 		</if>
 		<if test='linetype != null and linetype != "" '>
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test='useable != null and useable != "" '>
 			and useable like '%${useable}%'
-		</if> -->
+		</if>
 		<if test="driver != null and driver != '' ">
 			and driver like '%${driver}%'
 		</if>
@@ -39,6 +39,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAllBaseBusCount" resultType="int">
 		select count(*)
 		from t_bus
+		where 1=1
+		<if test='carrier != null and carrier != "" '>
+			and carrier like '%${carrier}%'
+		</if>
+		<if test='busnumber != null and busnumber != "" '>
+			and busnumber like '%${busnumber}%'
+		</if>
+		<if test='driverphone != null and driverphone != "" '>
+			and driverphone like '%${driverphone}%'
+		</if>
+		<if test='linetype != null and linetype != "" '>
+			and linetype like '%${linetype}%'
+		</if>
+		<if test='linename != null and linename != "" '>
+			and linename like '%${linename}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if>
+		<if test="driver != null and driver != '' ">
+			and driver like '%${driver}%'
+		</if>
 	</select>
 	<!-- 添加班车 -->
 	<insert id="addBaseBus" parameterType="Bus">

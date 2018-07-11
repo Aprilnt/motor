@@ -13,67 +13,64 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yidu.motor.util.IDGenerator;
-import com.yidu.motor.base.domain.Bus;
 import com.yidu.motor.base.domain.Line;
-import com.yidu.motor.base.service.BusService;
+import com.yidu.motor.base.service.LineService;
 @Controller
-@RequestMapping("/bus")
-public class BusController {
+@RequestMapping("/line")
+public class LineController {
 	/**
-	 * 将busService依赖注入
+	 * 将lineService依赖注入
 	 */
 	@Autowired
-	private BusService busService;
+	private LineService lineService;
 	/**
 	 * Controller的set方法
-	 * @param busService 班车设置的service层
+	 * @param lineService 线路设置的service层
 	 */
-	public void setBusService(BusService busService) {
-		this.busService = busService;
+	public void setLineService(LineService lineService) {
+		this.lineService = lineService;
 	}
 	/**
-	 * 查询所有班车，并做出分页
+	 * 查询所有线路，并做出分页
 	 * @param pageSize 页码
 	 * @param pageNumber 页面大小
 	 * @param carrier 承运商
 	 * @param driver 司机
-	 * @return 班车集合
+	 * @return 线路集合
 	 * @throws Exception 异常
 	 */
 	@RequestMapping(value="/findAllPageQuery")
 	@ResponseBody
-	public  Map<String,Object> pageQueryBus(Integer pageSize,Integer pageNumber,
-			String carrier,String driver,String busnumber,String driverphone,String linetype,String linename,String useable) throws Exception{
+	public  Map<String,Object> pageQueryLine(Integer pageSize,Integer pageNumber,
+			String linename,String linetype,String linestart,String lineend,String direction,String useable) throws Exception{
 		//调用业务逻辑层分页方法
-		List<Bus> busList = busService.busPageQuery(pageSize, pageNumber,carrier,driver,busnumber,driverphone,linetype,linename,useable);
+		List<Line> lineList = lineService.linePageQuery(pageSize, pageNumber,linename,linetype,linestart,lineend,direction,useable);
 		//获取总记录数
-		int total = busService.findAllBaseBusCount(carrier,driver,driverphone,busnumber,linetype,linename,useable);
+		int total = lineService.findAllBaselineCount(linename,linetype,linestart,lineend,direction,useable);
 		//获取total，rows数利用map封装，便于json格式输出
 		Map<String,Object> map = new HashMap<String, Object>();
 		//为Map映射赋值
 		map.put("total",total);
 		//为Map映射赋值
-		map.put("rows", busList);
+		map.put("rows", lineList);
 		//返回Map映射结果
 		return map;
 		
 	}
 	
 	/**
-	 * 添加班车
-	 * @param bus 班车对象
+	 * 添加线路
+	 * @param line 线路对象
 	 * @return 成功返回true，否则返回false
 	 * @throws Exception 异常
 	 */
 	@ResponseBody
 	@RequestMapping(value="/add",method= {RequestMethod.POST})
-	public String add(Bus bus)throws Exception{
-		//将随机生成Id赋值给班车Id
-		bus.setBusid(IDGenerator.getID());
-		//获取系统时间赋值给操作时间
-		bus.setOperateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		//调用业务层添加班车的方法
-		boolean result = busService.addBaseBus(bus);
+	public String add(Line line)throws Exception{
+		//将随机生成Id赋值给线路Id
+		line.setLineid(IDGenerator.getID());
+		//调用业务层添加线路的方法
+		boolean result = lineService.addBaseline(line);
 		//判断添加是否成功
 		if(result){
 			   return "true";
@@ -83,16 +80,16 @@ public class BusController {
 	}
 	
 	/**
-	 * 修改班车信息
-	 * @param bus 班车对象
+	 * 修改线路信息
+	 * @param line 线路对象
 	 * @return 成功返回true，否则返回false
 	 * @throws Exception 异常
 	 */
 	@ResponseBody
 	@RequestMapping(value="/update",method= {RequestMethod.POST})
-	public String update(Bus bus)throws Exception{
+	public String update(Line line)throws Exception{
 		//调用业务逻辑的修改方法
-		boolean result = busService.updateBaseBus(bus);
+		boolean result = lineService.updateBaseline(line);
 		//判断是否成功
 		if(result){
 			return "true";
@@ -104,18 +101,18 @@ public class BusController {
 	
 	/**
 	 * 删除(逻辑删除)
-	 * @param busIds 班车Id
+	 * @param lineIds 线路Id
 	 * @return 成功返回success，否则返回error
 	 * @throws Exception 异常
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete",method= {RequestMethod.POST})
-	public String delete(@RequestParam(value="busids[]")String[] busids)throws Exception{
+	public String delete(@RequestParam(value="lineids[]")String[] lineids)throws Exception{
 		boolean result = false;
-		//利用增强的for循环获取班车Id
-		for(String busid:busids) {
+		//利用增强的for循环获取线路Id
+		for(String lineid:lineids) {
 			//调用业务逻辑层的删除方法
-			result = busService.deleteBaseBus(busid);
+			result = lineService.deleteBaseline(lineid);
 		}
 		//判断删除是否成功
 		if(result) {
@@ -123,16 +120,5 @@ public class BusController {
 		}else {
 			return "error";
 		}
-	}
-	/**
-	 * 查询所有线路名和Id
-	 * @return 返回业务层的查询方法
-	 * @throws Exception 异常
-	 */
-	@ResponseBody
-	@RequestMapping(value="/findLineNameAndId")
-	public List<Line> findLineNameAndId(){
-		//调用业务逻辑层的查询所有线路名和Id的方法
-		return busService.findLineNameAndId();
 	}
 }

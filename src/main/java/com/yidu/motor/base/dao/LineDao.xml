@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yidu.motor.base.dao.LineDao">
+	<!-- 分页查询 -->
+	<select id="baseLinepageQuery" parameterType="hashmap"
+		resultType="Line">
+		select *
+		from t_line
+		where 1=1
+		<if test='linename != null and linename != "" '>
+			and linename like '%${linename}%'
+		</if>
+		<if test='linetype != null and linetype != "" '>
+			and linetype like '%${linetype}%'
+		</if>
+		<if test='linestart != null and linestart != "" '>
+			and linestart like '%${linestart}%'
+		</if>
+		<if test='lineend != null and lineend != "" '>
+			and lineend like '%${lineend}%'
+		</if>
+		<if test='direction != null and direction != "" '>
+			and direction like '%${direction}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if>
+		<if test="pageNumber != null and pageSize != null">
+			limit #{pageNumber},#{pageSize}
+		</if>
+	</select>
+	<!-- 查询线路总记录数 -->
+	<select id="findAllBaseLineCount" resultType="int">
+		select count(*)
+		from t_line
+		where 1=1
+		<if test='linename != null and linename != "" '>
+			and linename like '%${linename}%'
+		</if>
+		<if test='linetype != null and linetype != "" '>
+			and linetype like '%${linetype}%'
+		</if>
+		<if test='linestart != null and linestart != "" '>
+			and linestart like '%${linestart}%'
+		</if>
+		<if test='lineend != null and lineend != "" '>
+			and lineend like '%${lineend}%'
+		</if>
+		<if test='direction != null and direction != "" '>
+			and direction like '%${direction}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if>
+	</select>
+	<!-- 添加线路 -->
+	<insert id="addBaseLine" parameterType="Line">
+		insert into t_line(lineid,linename,linetype,linestart,lineend,direction,description,
+		useable)
+		values(#{lineid},#{linename},#{linetype},#{linestart},
+		#{lineend},#{direction},#{description},#{useable})
+
+	</insert>
+	<!-- 修改线路信息 -->
+	<update id="updateBaseLine" parameterType="Line">
+		update t_line set linename = #{linename},linetype = #{linetype},linestart =
+		#{linestart},
+		lineend = #{lineend},direction=#{direction},description=#{description},useable = #{useable} where lineid=#{lineid}
+
+	</update>
+	<!-- 删除线路(逻辑删除) -->
+	<delete id="deleteBaseLine" parameterType="string">
+		delete from t_line
+		where LineId = #{lineid}
+	</delete>
+	<!-- 查询所有线路名 -->
+	<select id="findLineNameAndId" resultType="Line">
+		SELECT  * FROM t_line 
+	</select>
+</mapper>
