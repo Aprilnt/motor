@@ -410,8 +410,7 @@ p {
 									}
 								}); */
 								//线路类型
-								$
-										.ajax({
+								$.ajax({
 											type : "post",
 											async : false,
 											url : '${APP_PATH}/bus/findLineNameAndId',
@@ -799,8 +798,8 @@ p {
 											message : '线路名称不能为空!'
 										},
 										regexp : {
-											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '职员名只能为中文例如:张三!'
+											regexp : /^[\u4E00-\u9FA5]{2,6}$/,
+											message : '线路名称只能为中文且2到6位例如:高速线路!'
 										}
 									}
 								},
@@ -888,8 +887,8 @@ p {
 											message : '线路名称不能为空!'
 										},
 										regexp : {
-											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '职员名只能为中文例如:张三!'
+											regexp : /^[\u4E00-\u9FA5]{2,6}$/,
+											message : '线路名称只能为中文且2到6位例如:高速线路！'
 										}
 									}
 								},

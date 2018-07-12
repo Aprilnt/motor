@@ -172,7 +172,14 @@ p {
 					title : '结束站点'
 				}, {
 					field : 'direction',
-					title : '方向'
+					title : '方向',
+					formatter : function(value, row, index) {
+						if (row.direction == 'Y') {
+							return '正方向';
+						} else {
+							return '反方向';
+						}
+					}
 				}, {
 					field : 'description',
 					title : '备注'
@@ -587,12 +594,7 @@ p {
 											min : 6,
 											max : 10,
 											message : '线路名长度必须在6到10位之间!'
-										},
-										regexp : {
-											regexp : /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/,
-											message : '车牌号格式不正确!'
-										}
-									}
+										}									}
 								},
 								linetypeAdd : {
 									validators : {
@@ -600,8 +602,8 @@ p {
 											message : '线路类型不能为空!'
 										},
 										regexp : {
-											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '线路类型只能为中文例如:张三!'
+											regexp : /^[\u4E00-\u9FA5]{2,6}$/,
+											message : '线路类型只能为中文例如:快速线路!'
 										}
 									}
 								},
@@ -611,8 +613,8 @@ p {
 											message : '开始站点不能为空!'
 										},
 										regexp : {
-											regexp : /^1(3|4|5|7|8)\d{9}$/,
-											message : '电话号码格式不正确!'
+											regexp : /^[\u4e00-\u9fa5]{0,}$/,
+											message : '开始站点要为中文!'
 										}
 									}
 								},
@@ -622,8 +624,8 @@ p {
 											message : '结束站点不能为空!'
 										},
 										regexp : {
-											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '职员名只能为中文例如:张三!'
+											regexp : /^[\u4E00-\u9FA5]{0,}$/,
+											message : '结束站点要为中文!'
 										}
 									}
 								},
@@ -646,10 +648,10 @@ p {
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse"
-						href="#collapseOne"> 显示查询条件<span class="caret"></span> </a>
+						href="#collapseTwo"> 显示查询条件<span class="caret"></span> </a>
 				</h4>
 			</div>
-			<div id="collapseOne" class="panel-collapse collapse in">
+			<div id="collapseTwo" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<form id="formSearch" class="form-horizontal">
 					<div class="form-group" style="margin-top: 15px">
@@ -766,8 +768,11 @@ p {
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">方向</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="directionAdd"
-											name="directionAdd" placeholder="请输入方向">
+										<select class="form-control" id="directionAdd">
+											<option value="">请选择方向</option>
+											<option value="Y">正方向</option>
+											<option value="N">反方向</option>
+										</select>
 									</div>
 								</div>
 								<div class="form-group">
@@ -846,8 +851,10 @@ p {
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">方向</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="directionUp"
-											name="directionUp" placeholder="请输入方向">
+									<select class="form-control" id="directionUp">
+										<option value="Y">正方向</option>
+										<option value="N">反方向</option>
+									</select>
 									</div>
 								</div>
 								<div class="form-group">
