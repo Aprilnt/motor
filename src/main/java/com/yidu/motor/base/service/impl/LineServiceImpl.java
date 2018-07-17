@@ -127,4 +127,26 @@ public class LineServiceImpl implements LineService {
 			return false;
 		}
 	}
+	/**
+	 * 冻结线路状态
+	 * @param lineids 线路id集合
+	 * @return 冻结成功返回true 失败返回false
+	 */
+	public boolean updateUseableById(String lineid) {
+		//判断冻结线路状态是否成功
+		if(lineDao.updateUseableById(lineid)==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean updateUseableToYes(String lineid) {
+		//判断冻结线路状态是否成功
+		if(lineDao.updateUseableToYes(lineid)==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

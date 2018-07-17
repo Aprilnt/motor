@@ -199,16 +199,18 @@ p {
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 			</button>
 		</shiro:hasPermission>
-		<shiro:hasPermission name="冻结班车 ">
-			<button id="btn_delete" type="button" class="btn btn-warning">
-				<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>冻结
+		<shiro:hasPermission name="作废用户">
+			<button id="btn_forzen" type="button" class="btn btn-warning">
+				<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+				冻结
 			</button>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="解冻班车 ">
-			<button id="btn_delete" type="button" class="btn btn-info">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>解冻
-			</button>
-		</shiro:hasPermission>
+			<!-- </shiro:hasPermission> -->
+			<shiro:hasPermission name="还原用户">
+				<button id="btn_recover" type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+					还原
+				</button>
+			</shiro:hasPermission>
 	</div>
 	<table id="tb_departments"></table>
 

@@ -121,4 +121,48 @@ public class LineController {
 			return "error";
 		}
 	}
+	/**
+	 * 批量冻结线路状态
+	 * @param lineids 线路id结合
+	 * @return 成功返回success，否则返回error
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateUseable",method= {RequestMethod.POST})
+	public String updateUseableById(@RequestParam(value="lineids[]") String[] lineids) throws Exception{
+		boolean result = false;
+		//调用业务逻辑层的冻结方法
+		for(String lineid:lineids) {
+			//调用业务逻辑层的冻结方法
+			result = lineService.updateUseableById(lineid);
+		}
+
+		//判断删除是否成功
+		if(result) {
+			return "success"; 
+		}else {
+			return "error";
+		}
+	}
+	/**
+	 * 批量解冻线路状态
+	 * @param lineids 线路id结合
+	 * @return 成功返回success，否则返回error
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateUseableToYes")
+	public String updateUseableToYes(@RequestParam(value="lineids[]") String[] lineids){
+		 boolean result=false;
+		//调用业务逻辑层的解冻方法
+		 for (String lineid : lineids) {
+			result=lineService.updateUseableToYes(lineid);
+		}
+		//判断解冻是否成功
+		if(result) {
+			return "success"; 
+		}else {
+			return "error";
+		}
+	}
 }

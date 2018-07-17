@@ -80,4 +80,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findLineNameAndId" resultType="Line">
 		SELECT  * FROM t_line 
 	</select>
+	<!-- 冻结班车状态 -->
+	<delete id="updateUseableById" parameterType="String">
+		update t_line set useable='N' where lineid =#{lineid}
+	</delete>
+	<!-- 解冻班车状态 -->
+	<delete id="updateUseableToYes" parameterType="String">
+		update t_line set useable='Y' where lineid =#{lineid}
+	</delete>
 </mapper>

@@ -137,7 +137,122 @@
 					});
 				}
 			});
+			$("#btn_forzen").click(
+					function() {
+						var select = $('#tb_departments').bootstrapTable(
+								'getSelections');
+						if (select.length === 0) {
+							toastr.warning('请至少选择一行冻结');
+						} else {
+							//遍历，如果选择的用户中有已被禁用的，给出提示，退出!
+							for (var i = 0; i < select.length; i++) {
+								if (select[i].useable == "N") {
+									toastr.warning('您选择的目标用户中有已被禁用的');
+									return;
+								}
+							}
+							swal({
+								title : "操作提示", //弹出框的title  
+								text : "确定冻结吗？", //弹出框里面的提示文本  
+								type : "warning", //弹出框类型  
+								showCancelButton : true, //是否显示取消按钮  
+								confirmButtonColor : "#DD6B55",//确定按钮颜色  
+								cancelButtonText : "取消",//取消按钮文本  
+								confirmButtonText : "是的，确定冻结！",//确定按钮上面的文档  
+								closeOnConfirm : true
+							}, function() {
+								var arrs = [];
+								for (var i = 0; i < select.length; i++) {
+									arrs[i] = select[i]['lineid'];
 
+									$('#tb_departments').bootstrapTable(
+											'remove', {
+												field : 'lineid',
+												values : arrs
+											});
+								}
+								$.ajax({
+									type : "post",
+									url : 'line/updateUseable',
+									data : {
+										lineids : arrs
+									},
+									success : function(result) {
+										if (result == "success") {
+											toastr.success('冻结成功!');
+											$('#tb_departments')
+													.bootstrapTable('refresh');
+
+										} else {
+											toastr.error('冻结失败!');
+										}
+									}
+
+								});
+
+							});
+
+						}
+
+					});
+			$("#btn_recover").click(
+					function() {
+						var select = $('#tb_departments').bootstrapTable(
+								'getSelections');
+						if (select.length === 0) {
+							toastr.warning('请至少选择一行解冻');
+						} else {
+							//遍历，如果选择的用户中有已被禁用的，给出提示，退出!
+							for (var i = 0; i < select.length; i++) {
+								if (select[i].useable == "Y") {
+									toastr.warning('您选择的目标用户中有激活的');
+									return;
+								}
+							}
+							swal({
+								title : "操作提示", //弹出框的title  
+								text : "确定激活吗？", //弹出框里面的提示文本  
+								type : "warning", //弹出框类型  
+								showCancelButton : true, //是否显示取消按钮  
+								confirmButtonColor : "#DD6B55",//确定按钮颜色  
+								cancelButtonText : "取消",//取消按钮文本  
+								confirmButtonText : "是的，确定激活！",//确定按钮上面的文档  
+								closeOnConfirm : true
+							}, function() {
+								var arrs = [];
+								for (var i = 0; i < select.length; i++) {
+									arrs[i] = select[i]['lineid'];
+
+									$('#tb_departments').bootstrapTable(
+											'remove', {
+												field : 'lineid',
+												values : arrs
+											});
+								}
+								$.ajax({
+									type : "post",
+									url : 'line/updateUseableToYes',
+									data : {
+										lineids : arrs
+									},
+									success : function(result) {
+										if (result == "success") {
+											toastr.success('解冻成功!');
+											$('#tb_departments')
+													.bootstrapTable('refresh');
+
+										} else {
+											toastr.error('解冻失败!');
+										}
+									}
+
+								});
+
+							});
+
+						}
+
+					});
 			// 点击修改脚本打开模态框
 			$("#btn_edit").click(
 					function() {

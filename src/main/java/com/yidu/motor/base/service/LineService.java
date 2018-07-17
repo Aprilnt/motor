@@ -50,7 +50,16 @@ public interface LineService {
 	 */
 	boolean deleteBaseline(String lineid);
 	/**
-	 * 查询所有线路类型和Id
-	 * @return 线路类型和Id的集合
+	 * 冻结线路状态
+	 * @param lineids 线路id集合
+	 * @return 冻结成功返回true 失败返回false
 	 */
+	boolean updateUseableById(String lineid);
+	/**
+	 * 解冻线路状态
+	 * @param lineids 线路id集合
+	 * @return 解冻成功返回true 失败返回false
+	 */
+	boolean updateUseableToYes(String lineid);
+	
 }
