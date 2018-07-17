@@ -138,4 +138,26 @@ public class BusServiceImpl implements BusService {
 	public List<Line> findLineNameAndId() {
 		return busDao.findLineNameAndId();
 	}
+	/**
+	 * 冻结班车状态
+	 * @param busids 班车id集合
+	 * @return 冻结成功返回true 失败返回false
+	 */
+	public boolean updateUseableById(String busid) {
+		//判断冻结班车状态是否成功
+		if(busDao.updateUseableById(busid)==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean updateUseableToYes(String busid) {
+		//判断冻结班车状态是否成功
+		if(busDao.updateUseableToYes(busid)==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

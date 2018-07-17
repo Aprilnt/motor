@@ -41,5 +41,15 @@ public interface BusDao {
 	 * @return 线路类型和Id的集合
 	 */
 	List<Line> findLineNameAndId();
+	/**
+	 * 批量冻结用户
+	 * @return
+	 */
+	int updateUseableById(String busid);
+	/**
+	 * 批量解冻用户
+	 * @return
+	 */
+	int updateUseableToYes(String busid);
 	
 }

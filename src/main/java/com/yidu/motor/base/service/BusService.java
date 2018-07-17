@@ -51,5 +51,17 @@ public interface BusService {
 	 * @return 线路类型和Id的集合
 	 */
 	List<Line> findLineNameAndId();
+	/**
+	 * 冻结班车状态
+	 * @param busids 班车id集合
+	 * @return 冻结成功返回true 失败返回false
+	 */
+	boolean updateUseableById(String busid);
+	/**
+	 * 解冻班车状态
+	 * @param busids 班车id集合
+	 * @return 解冻成功返回true 失败返回false
+	 */
+	boolean updateUseableToYes(String busid);
 	
 }

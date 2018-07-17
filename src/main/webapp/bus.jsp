@@ -173,24 +173,24 @@ p {
 					field : 'driverphone',
 					title : '电话'
 				},/*  {
-																																				field : 'bustype',
-																																				title : '车型'
-																																			}, */{
+																																								field : 'bustype',
+																																								title : '车型'
+																																							}, */{
 					field : 'linetype',
 					title : '线路类型'
 				}, {
 					field : 'linename',
 					title : '线路名称'
 				},/*  {
-																																				field : 'operationStaffId',
-																																				title : '操作人'
-																																			}, {
-																																				field : 'operateUnit',
-																																				title : '操作单位'
-																																			}, {
-																																				field : 'operateTime',
-																																				title : '操作时间'
-																																			}, */{
+																																								field : 'operationStaffId',
+																																								title : '操作人'
+																																							}, {
+																																								field : 'operateUnit',
+																																								title : '操作单位'
+																																							}, {
+																																								field : 'operateTime',
+																																								title : '操作时间'
+																																							}, */{
 					field : 'ton',
 					title : '吨控'
 				}, {
@@ -201,9 +201,9 @@ p {
 					title : '状态',
 					formatter : function(value, row, index) {
 						if (row.useable == 'Y') {
-							return '激活';
+							return '<span style="color:green">激活</span>';
 						} else {
-							return '作废';
+							return '<span style="color:red">作废</span>';
 						}
 					}
 				} ]
@@ -217,12 +217,6 @@ p {
 		var oInit = new Object();
 		var postdata = {};
 		oInit.Init = function() {
-			/*
-			 * $("#btn_btn").click(function() { test();
-			 * 
-			 * });
-			 */
-
 			$("#btn_sub")
 					.click(
 							function() {
@@ -277,10 +271,10 @@ p {
 										|| driverphone == "") {
 									toastr.error('电话不能为空');
 								}/* else if (operationStaffId == null || operationStaffId == "") {
-																																																																				toastr.error('操作人不能为空');
-																																																																			} else if (operateUnit == null || operateUnit == "") {
-																																																																				toastr.error('操作单位不能为空');
-																																																																			}  */else if (ton == null
+																																																																												toastr.error('操作人不能为空');
+																																																																											} else if (operateUnit == null || operateUnit == "") {
+																																																																												toastr.error('操作单位不能为空');
+																																																																											}  */else if (ton == null
 										|| ton == "") {
 									toastr.error('吨控不能为空');
 								} else {
@@ -410,12 +404,15 @@ p {
 									}
 								}); */
 								//线路类型
-								$.ajax({
+								$
+										.ajax({
 											type : "post",
 											async : false,
 											url : '${APP_PATH}/bus/findLineNameAndId',
 											success : function(response) {
-												var html = "<option>请选择线路类型</option>";
+												var html = "<option>"
+														+ linetype
+														+ "</option>";
 												for (var i = 0; i < response.length; i++) {
 													html = html
 															+ "<option id='"+response[i].linetype+"'>"
@@ -549,7 +546,122 @@ p {
 									}
 								});
 							});
+			$("#btn_forzen").click(
+					function() {
+						var select = $('#tb_departments').bootstrapTable(
+								'getSelections');
+						if (select.length === 0) {
+							toastr.warning('请至少选择一行冻结');
+						} else {
+							//遍历，如果选择的用户中有已被禁用的，给出提示，退出!
+							for (var i = 0; i < select.length; i++) {
+								if (select[i].useable == "N") {
+									toastr.warning('您选择的目标用户中有已被禁用的');
+									return;
+								}
+							}
+							swal({
+								title : "操作提示", //弹出框的title  
+								text : "确定冻结吗？", //弹出框里面的提示文本  
+								type : "warning", //弹出框类型  
+								showCancelButton : true, //是否显示取消按钮  
+								confirmButtonColor : "#DD6B55",//确定按钮颜色  
+								cancelButtonText : "取消",//取消按钮文本  
+								confirmButtonText : "是的，确定冻结！",//确定按钮上面的文档  
+								closeOnConfirm : true
+							}, function() {
+								var arrs = [];
+								for (var i = 0; i < select.length; i++) {
+									arrs[i] = select[i]['busid'];
 
+									$('#tb_departments').bootstrapTable(
+											'remove', {
+												field : 'busid',
+												values : arrs
+											});
+								}
+								$.ajax({
+									type : "post",
+									url : '${APP_PATH}/bus/updateUseable',
+									data : {
+										busids : arrs
+									},
+									success : function(result) {
+										if (result == "success") {
+											toastr.success('冻结成功!');
+											$('#tb_departments')
+													.bootstrapTable('refresh');
+
+										} else {
+											toastr.error('冻结失败!');
+										}
+									}
+
+								});
+
+							});
+
+						}
+
+					});
+			$("#btn_recover").click(
+					function() {
+						var select = $('#tb_departments').bootstrapTable(
+								'getSelections');
+						if (select.length === 0) {
+							toastr.warning('请至少选择一行解冻');
+						} else {
+							//遍历，如果选择的用户中有已被禁用的，给出提示，退出!
+							for (var i = 0; i < select.length; i++) {
+								if (select[i].useable == "Y") {
+									toastr.warning('您选择的目标用户中有激活的');
+									return;
+								}
+							}
+							swal({
+								title : "操作提示", //弹出框的title  
+								text : "确定激活吗？", //弹出框里面的提示文本  
+								type : "warning", //弹出框类型  
+								showCancelButton : true, //是否显示取消按钮  
+								confirmButtonColor : "#DD6B55",//确定按钮颜色  
+								cancelButtonText : "取消",//取消按钮文本  
+								confirmButtonText : "是的，确定激活！",//确定按钮上面的文档  
+								closeOnConfirm : true
+							}, function() {
+								var arrs = [];
+								for (var i = 0; i < select.length; i++) {
+									arrs[i] = select[i]['busid'];
+
+									$('#tb_departments').bootstrapTable(
+											'remove', {
+												field : 'busid',
+												values : arrs
+											});
+								}
+								$.ajax({
+									type : "post",
+									url : '${APP_PATH}/bus/updateUseableToYes',
+									data : {
+										busids : arrs
+									},
+									success : function(result) {
+										if (result == "success") {
+											toastr.success('解冻成功!');
+											$('#tb_departments')
+													.bootstrapTable('refresh');
+
+										} else {
+											toastr.error('解冻失败!');
+										}
+									}
+
+								});
+
+							});
+
+						}
+
+					});
 			$("#btn_delete").click(
 					function() {
 						var select = $('#tb_departments').bootstrapTable(
@@ -601,7 +713,6 @@ p {
 						}
 
 					});
-
 		};
 		return oInit;
 	};
@@ -1005,6 +1116,18 @@ p {
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
 			</button>
 		</shiro:hasPermission>
+		<shiro:hasPermission name="作废用户">
+			<button id="btn_forzen" type="button" class="btn btn-warning">
+				<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+				冻结
+			</button>
+			<!-- </shiro:hasPermission> -->
+			<shiro:hasPermission name="还原用户">
+				<button id="btn_recover" type="button" class="btn btn-success">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+					还原
+				</button>
+			</shiro:hasPermission>
 	</div>
 	<table id="tb_departments"></table>
 

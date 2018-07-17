@@ -135,4 +135,48 @@ public class BusController {
 		//调用业务逻辑层的查询所有线路名和Id的方法
 		return busService.findLineNameAndId();
 	}
+	/**
+	 * 批量冻结班车状态
+	 * @param busids 班车id结合
+	 * @return 成功返回success，否则返回error
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateUseable",method= {RequestMethod.POST})
+	public String updateUseableById(@RequestParam(value="busids[]") String[] busids) throws Exception{
+		boolean result = false;
+		//调用业务逻辑层的冻结方法
+		for(String busid:busids) {
+			//调用业务逻辑层的冻结方法
+			result = busService.updateUseableById(busid);
+		}
+
+		//判断删除是否成功
+		if(result) {
+			return "success"; 
+		}else {
+			return "error";
+		}
+	}
+	/**
+	 * 批量解冻班车状态
+	 * @param busids 班车id结合
+	 * @return 成功返回success，否则返回error
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateUseableToYes")
+	public String updateUseableToYes(@RequestParam(value="busids[]") String[] busids){
+		 boolean result=false;
+		//调用业务逻辑层的解冻方法
+		 for (String busid : busids) {
+			result=busService.updateUseableToYes(busid);
+		}
+		//判断解冻是否成功
+		if(result) {
+			return "success"; 
+		}else {
+			return "error";
+		}
+	}
 }

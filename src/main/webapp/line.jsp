@@ -188,9 +188,9 @@ p {
 					title : '状态',
 					formatter : function(value, row, index) {
 						if (row.useable == 'Y') {
-							return '激活';
+							return '<span style="color:green">激活</span>';
 						} else {
-							return '作废';
+							return '<span style="color:red">作废</span>';
 						}
 					}
 				} ]
@@ -209,7 +209,6 @@ p {
 			 * 
 			 * });
 			 */
-
 			$("#btn_sub").click(function() {
 
 				var linename = $("#linenameAdd").val();
@@ -518,13 +517,9 @@ p {
 											message : '线路名不能为空!',
 										},
 										stringLength : {
-											min : 6,
+											min : 4,
 											max : 10,
 											message : '线路名长度必须在6到10位之间!'
-										},
-										regexp : {
-											regexp : /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/,
-											message : '车牌号格式不正确!'
 										}
 									}
 								},
@@ -535,7 +530,7 @@ p {
 										},
 										regexp : {
 											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '线路类型只能为中文例如:张三!'
+											message : '线路类型只能为中文且2到4位例如:高速线路!'
 										}
 									}
 								},
@@ -545,8 +540,8 @@ p {
 											message : '开始站点不能为空!'
 										},
 										regexp : {
-											regexp : /^1(3|4|5|7|8)\d{9}$/,
-											message : '电话号码格式不正确!'
+											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
+											message : '开始站点只能为中文且2到4位例如:长沙!'
 										}
 									}
 								},
@@ -557,7 +552,7 @@ p {
 										},
 										regexp : {
 											regexp : /^[\u4E00-\u9FA5]{2,4}$/,
-											message : '职员名只能为中文例如:张三!'
+											message : '结束站点只能为中文且2到4位例如:长沙!'
 										}
 									}
 								},
@@ -717,6 +712,16 @@ p {
 		<shiro:hasPermission name="删除班车 ">
 			<button id="btn_delete" type="button" class="btn btn-danger">
 				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+			</button>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="冻结班车 ">
+			<button id="btn_delete" type="button" class="btn btn-warning">
+				<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>冻结
+			</button>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="解冻班车 ">
+			<button id="btn_delete" type="button" class="btn btn-info">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>解冻
 			</button>
 		</shiro:hasPermission>
 	</div>

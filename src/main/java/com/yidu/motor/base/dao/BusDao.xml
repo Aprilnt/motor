@@ -85,6 +85,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	<!-- 查询所有线路名 -->
 	<select id="findLineNameAndId" resultType="Line">
-		SELECT  * FROM t_line 
+		SELECT linetype,lineid  FROM t_line 
 	</select>
+	<!-- 冻结班车状态 -->
+	<delete id="updateUseableById" parameterType="String">
+		update t_bus set useable='N' where busid =#{busid}
+	</delete>
+	<!-- 解冻班车状态 -->
+	<delete id="updateUseableToYes" parameterType="String">
+		update t_bus set useable='Y' where busid =#{busid}
+	</delete>
 </mapper>
