@@ -64,17 +64,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 添加班车 -->
 	<insert id="addBaseBus" parameterType="Bus">
-		insert into t_bus(busid,busNumber,carrier,driverPhone,lineName,linetype,
+		insert into t_bus(busid,busNumber,driver,carrier,driverPhone,lineName,linetype,
 		ton,description,useAble)
-		values(#{busid},#{busnumber},#{carrier},#{driverphone},
+		values(#{busid},#{busnumber},#{driver},#{carrier},#{driverphone},
 		#{linename},#{linetype},#{ton},#{description},#{useable})
 
 	</insert>
 	<!-- 修改班车信息 -->
 	<update id="updateBaseBus" parameterType="Bus">
-		update t_bus set busNumber = #{busnumber},carrier = #{carrier},driverPhone =
-		#{driverphone},
-		lineName = #{linename},linetype=#{linetype},ton = #{ton},description = #{description},
+		update t_bus set busNumber = #{busnumber}, driver=#{driver},carrier = #{carrier},driverPhone =
+		#{driverphone},lineName = #{linename},linetype=#{linetype},ton = #{ton},description = #{description},
 		useAble = #{useable} where busid=#{busid}
 
 	</update>

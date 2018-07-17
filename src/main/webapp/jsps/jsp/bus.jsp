@@ -7,10 +7,10 @@
 
 	String orgName = request.getParameter("orgName");
 	pageContext.setAttribute("APP_PATH", request.getContextPath());
-	
+
 	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-	
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -44,6 +44,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${APP_PATH}/js/sweetalert/sweetalert.css" />
 <script type="text/javascript" src="${APP_PATH}/jsps/js/bus.js">
+	
 </script>
 <!-- 页面下拉框Js文件和Css的引用 -->
 <script type="text/javascript"
@@ -253,6 +254,13 @@ p {
 									</div>
 								</div>
 								<div class="form-group">
+									<label for="firstname" class="col-sm-3 control-label">司机</label>
+									<div class="col-sm-8">
+										<select class="form-control" id="driverAdd" name="driverAdd">
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">电话</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="driverphoneAdd"
@@ -262,8 +270,9 @@ p {
 								<div class="form-group">
 									<label for="lastname" class="col-sm-3 control-label">线路名称</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="linenameAdd"
-											name="linenameAdd" placeholder="请输入线路名称">
+										<select class="form-control" id="linenameAdd"
+											name="linenameAdd">
+										</select>
 									</div>
 								</div>
 								<div class="form-group">
@@ -271,6 +280,7 @@ p {
 									<div class="col-sm-8">
 										<select class="form-control" id="linetypeAdd"
 											name="linetypeAdd">
+											<option value="">请选择线路类型</option>
 										</select>
 									</div>
 								</div>
@@ -301,8 +311,7 @@ p {
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="btn_sub" type="button" class="btn btn-primary"
-						data-dismiss="modal">添加</button>
+					<button id="btn_sub" type="button" class="btn btn-primary">添加</button>
 					<button type="button" class="btn btn-default4" data-dismiss="modal">关闭</button>
 				</div>
 				<input type="hidden" value="<%=orgName%>" id="orgName" />
@@ -341,6 +350,13 @@ p {
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="firstname" class="col-sm-3 control-label">司机</label>
+								<div class="col-sm-8">
+									<select class="form-control" id="driverUp" name="driverUp">
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
 								<label for="lastname" class="col-sm-3 control-label">电话</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="driverphoneUp"
@@ -348,10 +364,10 @@ p {
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">线路名称</label>
+								<label for="firstname" class="col-sm-3 control-label">线路名称</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="linenameUp"
-										name="linenameUp" placeholder="请输入线路名称">
+									<select class="form-control" id="linenameUp" name="linenameUp">
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -387,8 +403,7 @@ p {
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button id="subset_edit" type="button" class="btn btn-primary"
-							data-dismiss="modal">提交更改</button>
+						<button id="subset_edit" type="button" class="btn btn-primary">提交更改</button>
 						<button type="button" class="btn btn-default4"
 							data-dismiss="modal">关闭</button>
 					</div>
