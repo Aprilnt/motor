@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 public interface BusDao {
 	/**
@@ -51,5 +52,10 @@ public interface BusDao {
 	 * @return
 	 */
 	int updateUseableToYes(String busid);
+	/**
+	 * 查询所有司机和Id
+	 * @return 司机和Id的集合
+	 */
+	List<Dispatcher> findDriverNameAndId();
 	
 }

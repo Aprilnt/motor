@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 @Service
 public interface BusService {
@@ -63,5 +64,10 @@ public interface BusService {
 	 * @return 解冻成功返回true 失败返回false
 	 */
 	boolean updateUseableToYes(String busid);
+	/**
+	 * 查询所有司机名和Id
+	 * @return 司机名和Id的集合
+	 */
+	List<Dispatcher> findDriverNameAndId();
 	
 }

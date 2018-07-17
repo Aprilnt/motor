@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yidu.motor.util.IDGenerator;
 import com.yidu.motor.base.domain.Bus;
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 import com.yidu.motor.base.service.BusService;
 @Controller
@@ -178,5 +179,17 @@ public class BusController {
 		}else {
 			return "error";
 		}
+	}
+	
+	/**
+	 * 查询所有司机名和Id
+	 * @return 返回业务层的查询方法
+	 * @throws Exception 异常
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findDriverNameAndId")
+	public List<Dispatcher> findDriverNameAndId(){
+		//调用业务逻辑层的查询所有司机名和Id的方法
+		return busService.findDriverNameAndId();
 	}
 }

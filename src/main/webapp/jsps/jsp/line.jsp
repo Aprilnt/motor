@@ -137,13 +137,15 @@ p {
 					<div class="form-group" style="margin-top: 15px">
 						<label class="control-label col-sm-1" for="txt_search_linename">线路名</label>
 						<div class="col-sm-2">
-							<input type="text" class="mhcys form-control"
-								id="txt_search_linename" placeholder="请输入线路名">
+								<select class="form-control" id="txt_search_linename">
+									<option value="">选择查询的线路名称</option>
+								</select>
 						</div>
 						<label class="control-label col-sm-1" for="txt_search_linetype">线路类型</label>
 						<div class="col-sm-2">
-							<input type="text" class="mhcys form-control"
-								id="txt_search_linetype" placeholder="请输入线路类型">
+								<select class="form-control" id="txt_search_linetype">
+									<option value="">选择查询的线路类型</option>
+								</select>
 						</div>
 						<label class="control-label col-sm-1" for="txt_search_linestart">开始站点</label>
 						<div class="col-sm-2">
@@ -159,8 +161,12 @@ p {
 					<div class="form-group" style="margin-top: 15px">
 						<label class="control-label col-sm-1" for="txt_search_direction">方向</label>
 						<div class="col-sm-2">
-							<input type="text" class="mhsj form-control"
-								id="txt_search_direction" placeholder="请输入线路类型">
+							<select class="form-control" id="txt_search_direction"
+								name="linetypeAdd">
+								<option value="">选择您要查询的方向</option>
+								<option value="Y">正方向</option>
+								<option value="N">反方向</option>
+							</select>
 						</div>
 						<label class="control-label col-sm-1" for="txt_search_useable">状态</label>
 						<div class="col-sm-2">

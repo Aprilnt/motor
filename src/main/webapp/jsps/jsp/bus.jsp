@@ -148,8 +148,9 @@ p {
 							</div>
 							<label class="control-label col-sm-1" for="txt_search_driver">司机</label>
 							<div class="col-sm-2">
-								<input type="text" class="mhsj form-control"
-									id="txt_search_driver" placeholder="请输入司机">
+								<select class="form-control" id="txt_search_driver">
+									<option value="">选择查询的司机名</option>
+								</select>
 							</div>
 							<label class="control-label col-sm-1"
 								for="txt_search_driverphone">电话</label>
@@ -161,18 +162,19 @@ p {
 						<div class="form-group" style="margin-top: 15px">
 							<label class="control-label col-sm-1" for="txt_search_linetype">线路类型</label>
 							<div class="col-sm-2">
-								<input type="text" class="mhsj form-control"
-									id="txt_search_linetype" placeholder="请输入线路类型">
+								<select class="form-control" id="txt_search_linetype">
+									<option value="">选择查询的线路类型</option>
+								</select>
 							</div>
 							<label class="control-label col-sm-1" for="txt_search_linename">线路名称</label>
 							<div class="col-sm-2">
-								<input type="text" class="mhsj form-control"
-									id="txt_search_linename" placeholder="请输入线路名称">
+								<select class="form-control" id="txt_search_linename">
+									<option value="">选择查询的线路名称</option>
+								</select>
 							</div>
 							<label class="control-label col-sm-1" for="txt_search_useable">状态</label>
 							<div class="col-sm-2">
-								<select class="form-control" id="txt_search_useable"
-									name="linetypeAdd">
+								<select class="form-control" id="txt_search_useable">
 									<option value="">选择您要查询的状态</option>
 									<option value="Y">激活</option>
 									<option value="N">作废</option>

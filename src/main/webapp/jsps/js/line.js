@@ -2,6 +2,38 @@
 		var oTableInit = new Object();
 		// 初始化Table
 		oTableInit.Init = function() {
+			//线路类型
+			$.ajax({
+						type : "post",
+						async : false,
+						url : 'bus/findLineNameAndId',
+						success : function(response) {
+							var html = "";
+							for (var i = 0; i < response.length; i++) {
+								html = html
+										+ "<option id='"+response[i].linetype+"'>"
+										+ response[i].linetype
+										+ "</option>";
+							}
+							$("#txt_search_linetype").append(html);
+						}
+					});
+			//线路名称
+			$.ajax({
+						type : "post",
+						async : false,
+						url : 'bus/findLineNameAndId',
+						success : function(response) {
+							var html = "";
+							for (var i = 0; i < response.length; i++) {
+								html = html
+										+ "<option id='"+response[i].linename+"'>"
+										+ response[i].linename
+										+ "</option>";
+							}
+							$("#txt_search_linename").append(html);
+						}
+					});
 			$('#tb_departments').bootstrapTable({
 				url : 'line/findAllPageQuery', // 请求后台的URL（*）
 				method : 'get', // 请求方式（*）
