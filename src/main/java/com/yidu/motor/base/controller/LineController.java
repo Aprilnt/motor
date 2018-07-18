@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yidu.motor.util.IDGenerator;
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 import com.yidu.motor.base.service.LineService;
 @Controller
@@ -164,5 +165,16 @@ public class LineController {
 		}else {
 			return "error";
 		}
+	}
+	/**
+	 * 查询所有线路类型和Id
+	 * @return 返回业务层的查询方法
+	 * @throws Exception 异常
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findLineTypeAndId")
+	public List<Dispatcher> findLineTypeAndId(){
+		//调用业务逻辑层的查询所有司机名和Id的方法
+		return lineService.findLineTypeAndId();
 	}
 }

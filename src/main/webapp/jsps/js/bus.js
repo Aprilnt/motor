@@ -277,7 +277,6 @@ var ButtonInit = function() {
 						 */
 						var ton = [];
 						var description = [];
-						var useable = [];
 						// 获取单行数据
 						for (var i = 0; i < select.length; i++) {
 							busnumber[i] = select[i]['busnumber'];
@@ -295,7 +294,6 @@ var ButtonInit = function() {
 							 */
 							ton[i] = select[i]['ton'];
 							description[i] = select[i]['description'];
-							useable[i] = select[i]['useable'];
 						}
 
 						// 给模态框赋值
@@ -314,7 +312,6 @@ var ButtonInit = function() {
 						 */
 						$("#tonUp").attr("value", ton);
 						$("#descriptionUp").attr("value", description);
-						$("#useableUp").attr("value", useable);
 
 						$("#myModal-footer2").modal("show");
 
@@ -404,7 +401,6 @@ var ButtonInit = function() {
 			 */
 			var ton = [];
 			var description = [];
-			var useable = [];
 			// 获取单行数据
 			for (var i = 0; i < select.length; i++) {
 				busid = select[i]['busid'];
@@ -422,7 +418,6 @@ var ButtonInit = function() {
 				 */
 				ton[i] = select[i]['ton'];
 				description[i] = select[i]['description'];
-				useable[i] = select[i]['useable'];
 			}
 
 			// 获取输入框中数据
@@ -440,7 +435,6 @@ var ButtonInit = function() {
 			 */
 			var ton = $("#tonUp").val();
 			var description = $("#descriptionUp").val();
-			var useable = $("#useableUp").val();
 
 			$.ajax({
 				type : "post",
@@ -455,7 +449,6 @@ var ButtonInit = function() {
 					linename : linename,
 					ton : ton,
 					description : description,
-					useable : useable,
 					busid : busid
 				},
 				success : function(msg) {
@@ -789,6 +782,13 @@ function validator() {
 									}
 								}
 							},
+							driverAdd : {
+								validators : {
+									notEmpty : {
+										message : '司机不能为空!'
+									}
+								}
+							},
 							carrierAdd : {
 								validators : {
 									notEmpty : {
@@ -815,6 +815,13 @@ function validator() {
 								validators : {
 									notEmpty : {
 										message : '线路名称不能为空!'
+									}
+								}
+							},
+							linetypeAdd : {
+								validators : {
+									notEmpty : {
+										message : '线路类型不能为空!'
 									}
 								}
 							},
@@ -885,6 +892,20 @@ function validatorU() {
 									regexp : {
 										regexp : /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
 										message : '手机号码格式不正确!'
+									}
+								}
+							},
+							linetypeUp : {
+								validators : {
+									notEmpty : {
+										message : '线路类型不能为空!'
+									}
+								}
+							},
+							driverUp : {
+								validators : {
+									notEmpty : {
+										message : '司机不能为空!'
 									}
 								}
 							},

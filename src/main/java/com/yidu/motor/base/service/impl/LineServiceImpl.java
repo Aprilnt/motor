@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yidu.motor.base.dao.LineDao;
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 import com.yidu.motor.base.service.LineService;
 @Service
@@ -148,5 +149,12 @@ public class LineServiceImpl implements LineService {
 		}else{
 			return false;
 		}
+	}
+	/**
+	 * 查询线路类型
+	 */
+	public List<Dispatcher> findLineTypeAndId() {
+
+		return lineDao.findLineTypeAndId();
 	}
 }

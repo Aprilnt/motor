@@ -3,6 +3,7 @@ package com.yidu.motor.base.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 public interface LineDao {
 	/**
@@ -45,5 +46,10 @@ public interface LineDao {
 	 * @return
 	 */
 	int updateUseableToYes(String lineid);
+	/**
+	 * 查询线路类型
+	 * @return
+	 */
+	List<Dispatcher> findLineTypeAndId();
 	
 }

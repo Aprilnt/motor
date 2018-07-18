@@ -280,7 +280,6 @@ p {
 									<div class="col-sm-8">
 										<select class="form-control" id="linetypeAdd"
 											name="linetypeAdd">
-											<option value="">请选择线路类型</option>
 										</select>
 									</div>
 								</div>
@@ -298,14 +297,17 @@ p {
 											placeholder="备注">
 									</div>
 								</div>
+								<fieldset disabled>
 								<div class="form-group">
-									<label for="lastname" class="col-sm-3 control-label">作废</label>
+									<label for="lastname" class="col-sm-3 control-label">状态</label>
 									<div class="col-sm-8">
-										<select class="form-control" id="useableAdd">
+										<select class="form-control" id="useableAdd"
+											name="useableAdd">
 											<option value="Y">激活</option>
 										</select>
 									</div>
 								</div>
+								</fieldset>
 							</form>
 						</div>
 					</div>
@@ -389,15 +391,6 @@ p {
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="descriptionUp"
 										name="descriptionUp" placeholder="备注">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-3 control-label">作废</label>
-								<div class="col-sm-8">
-									<select class="form-control" id="useableUp">
-										<option value="Y">激活</option>
-										<option value="N">作废</option>
-									</select>
 								</div>
 							</div>
 						</form>

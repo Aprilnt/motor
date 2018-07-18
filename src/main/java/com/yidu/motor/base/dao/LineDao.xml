@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateBaseLine" parameterType="Line">
 		update t_line set linename = #{linename},linetype = #{linetype},linestart =
 		#{linestart},
-		lineend = #{lineend},direction=#{direction},description=#{description},useable = #{useable} where lineid=#{lineid}
+		lineend = #{lineend},direction=#{direction},description=#{description} where lineid=#{lineid}
 
 	</update>
 	<!-- 删除线路(逻辑删除) -->
@@ -88,4 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="updateUseableToYes" parameterType="String">
 		update t_line set useable='Y' where lineid =#{lineid}
 	</delete>
+	<select id="findLineTypeAndId" resultType="Basedocument">
+		select * from t_base_document
+	</select>
 </mapper>

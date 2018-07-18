@@ -73,8 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 修改班车信息 -->
 	<update id="updateBaseBus" parameterType="Bus">
 		update t_bus set busNumber = #{busnumber}, driver=#{driver},carrier = #{carrier},driverPhone =
-		#{driverphone},lineName = #{linename},linetype=#{linetype},ton = #{ton},description = #{description},
-		useAble = #{useable} where busid=#{busid}
+		#{driverphone},lineName = #{linename},linetype=#{linetype},ton = #{ton},description = #{description} where busid=#{busid}
 
 	</update>
 	<!-- 删除班车(逻辑删除) -->

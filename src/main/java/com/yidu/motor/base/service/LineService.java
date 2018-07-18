@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.yidu.motor.base.domain.Dispatcher;
 import com.yidu.motor.base.domain.Line;
 @Service
 public interface LineService {
@@ -61,5 +62,10 @@ public interface LineService {
 	 * @return 解冻成功返回true 失败返回false
 	 */
 	boolean updateUseableToYes(String lineid);
+	/**查询所有的线路类型
+	 * 
+	 * @return 线路类型集合
+	 */
+	List<Dispatcher> findLineTypeAndId();
 	
 }
