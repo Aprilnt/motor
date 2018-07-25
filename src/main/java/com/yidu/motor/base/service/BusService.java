@@ -46,7 +46,7 @@ public interface BusService {
 	 * @param busId 班车Id
 	 * @return 删除成功返回true否则返回false
 	 */
-	boolean deleteBaseBus(String busid);
+	boolean deleteBaseBus(String[] busids);
 	/**
 	 * 查询所有线路类型和Id
 	 * @return 线路类型和Id的集合

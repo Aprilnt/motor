@@ -36,7 +36,7 @@ public interface BusDao {
 	 * @param busId 班车Id
 	 * @return 删除成功返回1否则返回0
 	 */
-	int deleteBaseBus(String busid);
+	int deleteBaseBus(String[] busids);
 	/**
 	 * 查询所有线路类型和Id
 	 * @return 线路类型和Id的集合

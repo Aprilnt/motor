@@ -79,7 +79,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 删除班车(逻辑删除) -->
 	<delete id="deleteBaseBus" parameterType="string">
 		delete from t_bus
-		where busId = #{busid}
+		where busId  in
+		<foreach collection="array" item="busids" close=")" open="(" separator=",">
+		 #{busids}
+		</foreach>
+		
 	</delete>
 	<!-- 查询所有线路名 -->
 	<select id="findLineNameAndId" resultType="Line">

@@ -71,8 +71,6 @@ public class BusController {
 	public String add(Bus bus)throws Exception{
 		//将随机生成Id赋值给班车Id
 		bus.setBusid(IDGenerator.getID());
-		//获取系统时间赋值给操作时间
-		bus.setOperateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		//调用业务层添加班车的方法
 		boolean result = busService.addBaseBus(bus);
 		//判断添加是否成功
@@ -115,11 +113,8 @@ public class BusController {
 		//定义结果变量设置为假
 		boolean result = false;
 		//利用增强的for循环获取班车Id
-		for(String busid:busids) {
 			//调用业务逻辑层的删除方法
-			result = busService.deleteBaseBus(busid);
-		}
-		//判断删除是否成功
+			result = busService.deleteBaseBus(busids);		//判断删除是否成功
 		if(result) {
 			return "success"; 
 		}else {
