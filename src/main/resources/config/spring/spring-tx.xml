@@ -35,7 +35,7 @@
     	<aop:pointcut expression="execution(* com.yidu.motor.*.service..*.*Tx(..))" id="txPC"/>
     	<aop:advisor advice-ref="tx" pointcut-ref="txPC"/>
     </aop:config>
-    
+
 	
 
 </beans>        

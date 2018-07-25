@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yidu.motor.base.dao.PickstandardDao">
+	<!-- 分页查询 -->
+	<select id="basePickstandardpageQuery" parameterType="hashmap"
+		resultType="Pickstandard">
+		select *
+		from t_pick_standard
+		where 1=1
+		<if test='pickstandardname != null and pickstandardname != "" '>
+			and pickstandardname like '%${pickstandardname}%'
+		</if>
+		<if test='minweight != null and minweight != "" '>
+			and minweight like '%${minweight}%'
+		</if>
+		<if test='maxweight != null and maxweight != "" '>
+			and maxweight like '%${maxweight}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if>
+		<if test="pageNumber != null and pageSize != null">
+			limit #{pageNumber},#{pageSize}
+		</if>
+	</select>
+	<!-- 查询线路总记录数 -->
+	<select id="findAllBasePickstandardCount" resultType="int">
+		select count(*)
+		from t_pick_standard
+		where 1=1
+		<if test='pickstandardname != null and pickstandardname != "" '>
+			and pickstandardname like '%${pickstandardname}%'
+		</if>
+		<if test='minweight != null and minweight != "" '>
+			and minweight like '%${minweight}%'
+		</if>
+		<if test='maxweight != null and maxweight != "" '>
+			and maxweight like '%${maxweight}%'
+		</if>
+		<if test='useable != null and useable != "" '>
+			and useable like '%${useable}%'
+		</if>
+	</select>
+	<!-- 添加线路 -->
+	<insert id="addBasePickstandard" parameterType="Pickstandard">
+		insert into t_pick_standard(pickstandardid,pickstandardname,minweight,maxweight,description,
+		useable)
+		values(#{pickstandardid},#{pickstandardname},#{minweight},#{maxweight},#{description},#{useable})
+
+	</insert>
+	<!-- 修改线路信息 -->
+	<update id="updateBasePickstandard" parameterType="Pickstandard">
+		update t_pick_standard set pickstandardname = #{pickstandardname},minweight = #{minweight},maxweight =
+		#{maxweight},description=#{description} where pickstandardid=#{pickstandardid}
+
+	</update>
+	<!-- 删除线路(逻辑删除) -->
+	<delete id="deleteBasePickstandard" parameterType="string">
+		delete from t_pick_standard
+		where PickstandardId = #{pickstandardid}
+	</delete>
+	<!-- 查询所有线路名 -->
+	<select id="findPickstandardNameAndId" resultType="Pickstandard">
+		SELECT  * FROM t_pick_standard 
+	</select>
+	<!-- 冻结班车状态 -->
+	<delete id="updateUseableById" parameterType="String">
+		update t_pick_standard set useable='N' where pickstandardid =#{pickstandardid}
+	</delete>
+	<!-- 解冻班车状态 -->
+	<delete id="updateUseableToYes" parameterType="String">
+		update t_pick_standard set useable='Y' where pickstandardid =#{pickstandardid}
+	</delete>
+</mapper>

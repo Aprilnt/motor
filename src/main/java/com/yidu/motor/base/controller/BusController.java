@@ -104,7 +104,7 @@ public class BusController {
 	}
 	
 	/**
-	 * 删除(逻辑删除)
+	 * 删除
 	 * @param busIds 班车Id
 	 * @return 成功返回success，否则返回error
 	 * @throws Exception 异常
@@ -112,6 +112,7 @@ public class BusController {
 	@ResponseBody
 	@RequestMapping(value="/delete",method= {RequestMethod.POST})
 	public String delete(@RequestParam(value="busids[]")String[] busids)throws Exception{
+		//定义结果变量设置为假
 		boolean result = false;
 		//利用增强的for循环获取班车Id
 		for(String busid:busids) {
@@ -145,6 +146,7 @@ public class BusController {
 	@ResponseBody
 	@RequestMapping(value="/updateUseable",method= {RequestMethod.POST})
 	public String updateUseableById(@RequestParam(value="busids[]") String[] busids) throws Exception{
+		//定义结果变量设置为假
 		boolean result = false;
 		//调用业务逻辑层的冻结方法
 		for(String busid:busids) {
@@ -168,7 +170,8 @@ public class BusController {
 	@ResponseBody
 	@RequestMapping(value="/updateUseableToYes")
 	public String updateUseableToYes(@RequestParam(value="busids[]") String[] busids){
-		 boolean result=false;
+		//定义结果变量设置为假
+		boolean result=false;
 		//调用业务逻辑层的解冻方法
 		 for (String busid : busids) {
 			result=busService.updateUseableToYes(busid);
