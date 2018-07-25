@@ -140,8 +140,8 @@ public class BusServiceImpl implements BusService {
 	 * @return 删除成功返回true否则返回false
 	 */
 	public boolean deleteBaseBus(String[] busids) {
-		// 判断删除班车对象是否==1
-		if (busDao.deleteBaseBus(busids) == 1) {
+		// 判断删除班车对象是否>0
+		if (busDao.deleteBaseBus(busids) > 0) {
 			return true;
 		} else {
 			return false;
@@ -165,18 +165,18 @@ public class BusServiceImpl implements BusService {
 	 *            班车id集合
 	 * @return 冻结成功返回true 失败返回false
 	 */
-	public boolean updateUseableById(String busid) {
+	public boolean updateUseableById(String[] busids) {
 		// 判断冻结班车状态是否成功
-		if (busDao.updateUseableById(busid) == 1) {
+		if (busDao.updateUseableById(busids) > 0) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUseableToYes(String busid) {
+	public boolean updateUseableToYes(String[] busids) {
 		// 判断冻结班车状态是否成功
-		if (busDao.updateUseableToYes(busid) == 1) {
+		if (busDao.updateUseableToYes(busids) > 0) {
 			return true;
 		} else {
 			return false;

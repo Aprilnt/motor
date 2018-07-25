@@ -74,7 +74,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 删除线路(逻辑删除) -->
 	<delete id="deleteBaseLine" parameterType="string">
 		delete from t_line
-		where LineId = #{lineid}
+		where LineId in
+		<foreach collection="array" close=")" item="lineids" open="(" separator=",">
+		#{lineids}
+		</foreach>
 	</delete>
 	<!-- 查询所有线路名 -->
 	<select id="findLineNameAndId" resultType="Line">
@@ -82,11 +85,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 冻结班车状态 -->
 	<delete id="updateUseableById" parameterType="String">
-		update t_line set useable='N' where lineid =#{lineid}
+		update t_line set useable='N' 
+		where LineId in
+		<foreach collection="array" close=")" item="lineids" open="(" separator=",">
+		#{lineids}
+		</foreach>
 	</delete>
 	<!-- 解冻班车状态 -->
 	<delete id="updateUseableToYes" parameterType="String">
-		update t_line set useable='Y' where lineid =#{lineid}
+		update t_line set useable='Y' 
+		where LineId in
+		<foreach collection="array" close=")" item="lineids" open="(" separator=",">
+		#{lineids}
+		</foreach>
 	</delete>
 	<select id="findLineTypeAndId" resultType="Basedocument">
 		select * from t_base_document

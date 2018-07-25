@@ -120,9 +120,9 @@ public class LineServiceImpl implements LineService {
 	 * @param lineId 线路Id
 	 * @return 删除成功返回true否则返回false
 	 */
-	public boolean deleteBaseline(String lineid) {
+	public boolean deleteBaseline(String[] lineids) {
 		//判断删除线路对象是否==1
-		if(lineDao.deleteBaseLine(lineid) == 1) {
+		if(lineDao.deleteBaseLine(lineids) >0) {
 			return true;
 		}else {
 			return false;
@@ -133,18 +133,18 @@ public class LineServiceImpl implements LineService {
 	 * @param lineids 线路id集合
 	 * @return 冻结成功返回true 失败返回false
 	 */
-	public boolean updateUseableById(String lineid) {
+	public boolean updateUseableById(String[] lineids) {
 		//判断冻结线路状态是否成功
-		if(lineDao.updateUseableById(lineid)==1){
+		if(lineDao.updateUseableById(lineids)>0){
 			return true;
 		}else{
 			return false;
 		}
 	}
 
-	public boolean updateUseableToYes(String lineid) {
+	public boolean updateUseableToYes(String[] lineids) {
 		//判断冻结线路状态是否成功
-		if(lineDao.updateUseableToYes(lineid)==1){
+		if(lineDao.updateUseableToYes(lineids)>0){
 			return true;
 		}else{
 			return false;

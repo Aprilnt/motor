@@ -46,12 +46,12 @@ public interface BusDao {
 	 * 批量冻结用户
 	 * @return
 	 */
-	int updateUseableById(String busid);
+	int updateUseableById(String[] busids);
 	/**
 	 * 批量解冻用户
 	 * @return
 	 */
-	int updateUseableToYes(String busid);
+	int updateUseableToYes(String[] busids);
 	/**
 	 * 查询所有司机和Id
 	 * @return 司机和Id的集合

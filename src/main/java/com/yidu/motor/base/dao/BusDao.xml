@@ -90,13 +90,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM t_line 
 	</select>
 	<!-- 冻结班车状态 -->
-	<delete id="updateUseableById" parameterType="String">
-		update t_bus set useable='N' where busid =#{busid}
-	</delete>
+	<update id="updateUseableById" parameterType="String">
+		update t_bus set useable='N' where busid in
+		<foreach collection="array" item="busids" close=")" open="(" separator=",">
+		 #{busids}
+		</foreach>
+	</update>
 	<!-- 解冻班车状态 -->
-	<delete id="updateUseableToYes" parameterType="String">
-		update t_bus set useable='Y' where busid =#{busid}
-	</delete>
+	<update id="updateUseableToYes" parameterType="String">
+		update t_bus set useable='Y' where busid in
+		<foreach collection="array" item="busids" close=")" open="(" separator=",">
+		 #{busids}
+		</foreach>
+	</update>
 	<!-- 查询司机名 -->
 	<select id="findDriverNameAndId" resultType="Dispatcher">
 		select dispatcherName from t_dispatcher

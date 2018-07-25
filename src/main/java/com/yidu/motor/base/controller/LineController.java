@@ -110,11 +110,8 @@ public class LineController {
 	@RequestMapping(value="/delete",method= {RequestMethod.POST})
 	public String delete(@RequestParam(value="lineids[]")String[] lineids)throws Exception{
 		boolean result = false;
-		//利用增强的for循环获取线路Id
-		for(String lineid:lineids) {
 			//调用业务逻辑层的删除方法
-			result = lineService.deleteBaseline(lineid);
-		}
+			result = lineService.deleteBaseline(lineids);
 		//判断删除是否成功
 		if(result) {
 			return "success"; 
@@ -132,12 +129,8 @@ public class LineController {
 	@RequestMapping(value="/updateUseable",method= {RequestMethod.POST})
 	public String updateUseableById(@RequestParam(value="lineids[]") String[] lineids) throws Exception{
 		boolean result = false;
-		//调用业务逻辑层的冻结方法
-		for(String lineid:lineids) {
 			//调用业务逻辑层的冻结方法
-			result = lineService.updateUseableById(lineid);
-		}
-
+			result = lineService.updateUseableById(lineids);
 		//判断删除是否成功
 		if(result) {
 			return "success"; 
@@ -155,10 +148,7 @@ public class LineController {
 	@RequestMapping(value="/updateUseableToYes")
 	public String updateUseableToYes(@RequestParam(value="lineids[]") String[] lineids){
 		 boolean result=false;
-		//调用业务逻辑层的解冻方法
-		 for (String lineid : lineids) {
-			result=lineService.updateUseableToYes(lineid);
-		}
+			result=lineService.updateUseableToYes(lineids);
 		//判断解冻是否成功
 		if(result) {
 			return "success"; 

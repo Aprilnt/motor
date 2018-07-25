@@ -57,13 +57,13 @@ public interface BusService {
 	 * @param busids 班车id集合
 	 * @return 冻结成功返回true 失败返回false
 	 */
-	boolean updateUseableById(String busid);
+	boolean updateUseableById(String[] busids);
 	/**
 	 * 解冻班车状态
 	 * @param busids 班车id集合
 	 * @return 解冻成功返回true 失败返回false
 	 */
-	boolean updateUseableToYes(String busid);
+	boolean updateUseableToYes(String[] busids);
 	/**
 	 * 查询所有司机名和Id
 	 * @return 司机名和Id的集合

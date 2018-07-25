@@ -49,19 +49,19 @@ public interface LineService {
 	 * @param lineId 线路Id
 	 * @return 删除成功返回true否则返回false
 	 */
-	boolean deleteBaseline(String lineid);
+	boolean deleteBaseline(String[] lineids);
 	/**
 	 * 冻结线路状态
 	 * @param lineids 线路id集合
 	 * @return 冻结成功返回true 失败返回false
 	 */
-	boolean updateUseableById(String lineid);
+	boolean updateUseableById(String[] lineids);
 	/**
 	 * 解冻线路状态
 	 * @param lineids 线路id集合
 	 * @return 解冻成功返回true 失败返回false
 	 */
-	boolean updateUseableToYes(String lineid);
+	boolean updateUseableToYes(String[] lineids);
 	/**查询所有的线路类型
 	 * 
 	 * @return 线路类型集合

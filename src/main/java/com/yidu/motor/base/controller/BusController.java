@@ -114,7 +114,11 @@ public class BusController {
 		boolean result = false;
 		//利用增强的for循环获取班车Id
 			//调用业务逻辑层的删除方法
+		for (String string : busids) {
+			System.out.println(string);
+		}
 			result = busService.deleteBaseBus(busids);		//判断删除是否成功
+			System.out.println(result);
 		if(result) {
 			return "success"; 
 		}else {
@@ -144,10 +148,8 @@ public class BusController {
 		//定义结果变量设置为假
 		boolean result = false;
 		//调用业务逻辑层的冻结方法
-		for(String busid:busids) {
 			//调用业务逻辑层的冻结方法
-			result = busService.updateUseableById(busid);
-		}
+			result = busService.updateUseableById(busids);
 
 		//判断删除是否成功
 		if(result) {
@@ -168,9 +170,7 @@ public class BusController {
 		//定义结果变量设置为假
 		boolean result=false;
 		//调用业务逻辑层的解冻方法
-		 for (String busid : busids) {
-			result=busService.updateUseableToYes(busid);
-		}
+			result=busService.updateUseableToYes(busids);
 		//判断解冻是否成功
 		if(result) {
 			return "success"; 

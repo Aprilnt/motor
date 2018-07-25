@@ -35,17 +35,17 @@ public interface LineDao {
 	 * @param lineid 线路Id
 	 * @return 删除成功返回1否则返回0
 	 */
-	int deleteBaseLine(String lineid);
+	int deleteBaseLine(String[] lineids);
 	/**
 	 * 批量冻结用户
 	 * @return
 	 */
-	int updateUseableById(String lineid);
+	int updateUseableById(String[] lineids);
 	/**
 	 * 批量解冻用户
 	 * @return
 	 */
-	int updateUseableToYes(String lineid);
+	int updateUseableToYes(String[] lineids);
 	/**
 	 * 查询线路类型
 	 * @return
